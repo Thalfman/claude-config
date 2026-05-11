@@ -12,7 +12,7 @@ in git so the config is reproducible from a fresh machine.
   **Not gitignored**, but treat as machine-local: do not rely on values being
   identical across machines.
 - `agents/` — 39 agent definitions (6 core + 33 GSD-namespaced).
-- `skills/` — 74 user-owned skills (8 domain + 63 GSD-namespaced + 3 misc).
+- `skills/` — 75 user-owned skills (8 domain + 65 GSD-namespaced + 2 misc).
 - `hooks/` — 18 hook scripts (5 Python v2, 10 GSD JS/sh, 2 GSD support, 1 plugin
   bridge). 15 wired in `settings.json`.
 - `plans/` — accumulated `/plan-mode` artifacts. Plans older than 30 days move
@@ -97,7 +97,7 @@ python -c "import yaml; print(yaml.__version__)"
 # 6. Start a session and confirm:
 #    - SessionStart hooks run without error
 #    - statusLine renders
-#    - skills list includes the 8 domain skills and the 63 gsd-* skills
+#    - skills list includes the 8 domain skills and the 65 gsd-* skills
 claude
 ```
 
