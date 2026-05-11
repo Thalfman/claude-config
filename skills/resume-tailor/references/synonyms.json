@@ -1,0 +1,132 @@
+{
+  "_comment": "Terminology equivalence map for relevance scoring. Each entry: a canonical key plus aliases that mean the same thing. The score_relevance script treats any alias as a match for the canonical key. Edit freely — this is your institutional knowledge.",
+  "_format": "canonical_key: [aliases...]",
+
+  "languages": {
+    "JavaScript": ["JS", "javascript", "ECMAScript", "Node.js JS"],
+    "TypeScript": ["TS", "typescript"],
+    "Python": ["python", "py", "Python3", "Python 3"],
+    "Java": ["java"],
+    "Kotlin": ["kotlin"],
+    "Go": ["Golang", "golang", "go-lang"],
+    "Rust": ["rust"],
+    "C++": ["CPP", "cpp", "cplusplus", "c plus plus"],
+    "C#": ["CSharp", "csharp", "C-Sharp", "DotNet C#"],
+    "Ruby": ["ruby"],
+    "PHP": ["php"],
+    "Swift": ["swift"],
+    "Scala": ["scala"],
+    "SQL": ["sql", "Structured Query Language"]
+  },
+
+  "frameworks_web": {
+    "React": ["React.js", "ReactJS", "react"],
+    "Next.js": ["NextJS", "Next", "next.js"],
+    "Vue": ["Vue.js", "VueJS"],
+    "Angular": ["AngularJS", "Angular 2+"],
+    "Svelte": ["SvelteKit"],
+    "Express": ["ExpressJS", "Express.js"],
+    "FastAPI": ["fastapi"],
+    "Django": ["django"],
+    "Flask": ["flask"],
+    "Rails": ["Ruby on Rails", "RoR"],
+    "Spring": ["Spring Boot", "SpringBoot"],
+    "ASP.NET": ["dotnet", ".NET", "ASP NET", "aspnet"]
+  },
+
+  "databases": {
+    "PostgreSQL": ["Postgres", "postgres", "PG", "postgresql"],
+    "MySQL": ["mysql", "MariaDB", "Maria DB"],
+    "MongoDB": ["Mongo", "mongo", "mongodb"],
+    "Redis": ["redis"],
+    "Elasticsearch": ["ES", "Elastic", "OpenSearch"],
+    "DynamoDB": ["Dynamo", "dynamo db"],
+    "BigQuery": ["BQ", "Big Query"],
+    "Snowflake": ["snowflake"],
+    "Cassandra": ["cassandra"],
+    "ClickHouse": ["clickhouse", "click house"]
+  },
+
+  "cloud": {
+    "AWS": ["Amazon Web Services", "amazon-aws"],
+    "GCP": ["Google Cloud", "Google Cloud Platform"],
+    "Azure": ["Microsoft Azure", "MS Azure"],
+    "Kubernetes": ["K8s", "k8s"],
+    "Docker": ["docker", "container"],
+    "Terraform": ["TF", "terraform", "IaC"],
+    "Ansible": ["ansible"],
+    "Helm": ["helm"],
+    "ECS": ["AWS ECS"],
+    "EKS": ["AWS EKS"],
+    "Lambda": ["AWS Lambda", "serverless function"],
+    "S3": ["AWS S3", "object storage"]
+  },
+
+  "data_ml": {
+    "Machine Learning": ["ML", "machine-learning"],
+    "Deep Learning": ["DL"],
+    "PyTorch": ["pytorch", "torch"],
+    "TensorFlow": ["TF", "tensorflow"],
+    "scikit-learn": ["sklearn", "scikit"],
+    "pandas": ["Pandas"],
+    "NumPy": ["numpy"],
+    "Spark": ["Apache Spark", "PySpark"],
+    "Airflow": ["Apache Airflow"],
+    "Kafka": ["Apache Kafka"],
+    "ETL": ["Extract Transform Load", "data pipeline"],
+    "Natural Language Processing": ["NLP"],
+    "Computer Vision": ["CV"],
+    "LLM": ["Large Language Model", "GenAI", "Generative AI"]
+  },
+
+  "api_protocols": {
+    "REST": ["RESTful", "REST API", "RESTful API", "HTTP API"],
+    "GraphQL": ["graphql", "graph QL"],
+    "gRPC": ["grpc", "gRPC API"],
+    "WebSocket": ["WebSockets", "ws"],
+    "OAuth": ["OAuth2", "OAuth 2.0"],
+    "JWT": ["JSON Web Token"],
+    "OpenAPI": ["Swagger", "OAS"]
+  },
+
+  "methodology": {
+    "Agile": ["Scrum", "agile"],
+    "Kanban": ["kanban"],
+    "Test-Driven Development": ["TDD", "test driven development"],
+    "Continuous Integration": ["CI"],
+    "Continuous Deployment": ["CD", "continuous delivery"],
+    "CI/CD": ["CICD", "ci-cd", "continuous integration and deployment"],
+    "Code Review": ["PR review", "pull request review"],
+    "Pair Programming": ["pairing"],
+    "DevOps": ["devops"],
+    "SRE": ["Site Reliability Engineering"],
+    "Microservices": ["micro services", "service-oriented architecture", "SOA"],
+    "Event-Driven Architecture": ["EDA", "event driven"],
+    "Domain-Driven Design": ["DDD", "domain driven design"]
+  },
+
+  "soft_skills": {
+    "Cross-functional collaboration": ["XFN collaboration", "cross-team", "cross functional"],
+    "Stakeholder management": ["stakeholder communication"],
+    "Mentoring": ["coaching", "mentorship"],
+    "Technical leadership": ["tech lead", "technical lead"],
+    "Project management": ["PM", "program management"],
+    "Public speaking": ["presentations", "presenting"]
+  },
+
+  "certifications": {
+    "AWS Certified Solutions Architect": ["AWS SAA", "AWS Solutions Architect"],
+    "AWS Certified Developer": ["AWS Dev"],
+    "GCP Professional Cloud Architect": ["GCP PCA"],
+    "Azure Solutions Architect Expert": ["Azure SA"],
+    "Certified Kubernetes Administrator": ["CKA"],
+    "PMP": ["Project Management Professional"],
+    "Scrum Master": ["CSM", "PSM"],
+    "Security+": ["CompTIA Security Plus"],
+    "CISSP": ["Certified Information Systems Security Professional"]
+  },
+
+  "_user_added": {
+    "_comment": "Add user-specific terms here. The skill never overwrites this section."
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "claude-plugins-official": {
+    "source": {
+      "source": "github",
+      "repo": "anthropics/claude-plugins-official"
+    },
+    "installLocation": "C:\\Users\\thalf\\.claude\\plugins\\marketplaces\\claude-plugins-official",
+    "lastUpdated": "2026-05-11T16:53:59.763Z"
+  },
+  "claude-code-skills": {
+    "source": {
+      "source": "github",
+      "repo": "alirezarezvani/claude-skills"
+    },
+    "installLocation": "C:\\Users\\thalf\\.claude\\plugins\\marketplaces\\claude-code-skills",
+    "lastUpdated": "2026-04-06T14:41:29.790Z"
+  },
+  "anthropic-agent-skills": {
+    "source": {
+      "source": "github",
+      "repo": "anthropics/skills"
+    },
+    "installLocation": "C:\\Users\\thalf\\.claude\\plugins\\marketplaces\\anthropic-agent-skills",
+    "lastUpdated": "2026-04-06T14:44:06.342Z"
+  },
+  "openai-codex": {
+    "source": {
+      "source": "github",
+      "repo": "openai/codex-plugin-cc"
+    },
+    "installLocation": "C:\\Users\\thalf\\.claude\\plugins\\marketplaces\\openai-codex",
+    "lastUpdated": "2026-04-24T21:59:42.777Z"
+  },
+  "context-mode": {
+    "source": {
+      "source": "github",
+      "repo": "mksglu/context-mode"
+    },
+    "installLocation": "C:\\Users\\thalf\\.claude\\plugins\\marketplaces\\context-mode",
+    "lastUpdated": "2026-05-04T19:12:39.763Z"
+  },
+  "thedotmack": {
+    "source": {
+      "source": "github",
+      "repo": "thedotmack/claude-mem"
+    },
+    "installLocation": "C:\\Users\\thalf\\.claude\\plugins\\marketplaces\\thedotmack",
+    "lastUpdated": "2026-05-04T19:12:44.628Z"
+  }
+}

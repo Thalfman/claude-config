@@ -1,0 +1,41 @@
+# Credentials and secrets
+.credentials.json
+mcp-needs-auth-cache.json
+
+# Session/runtime state
+sessions/
+projects/
+transcript-backups/
+file-history/
+paste-cache/
+shell-snapshots/
+session-env/
+ide/
+todos/
+tasks/
+debug/
+skill-observations/
+backups/
+context-mode/
+history.jsonl
+
+# Caches
+cache/
+plugins/cache/
+plugins/data/
+statsig/
+telemetry/
+stats-cache.json
+.last-cleanup
+
+# Plugin marketplaces (large, regenerable via marketplace registry)
+plugins/marketplaces/
+
+# Build artifacts
+**/__pycache__/
+**/*.pyc
+**/.pytest_cache/
+
+# Logs and quarantine
+logs/
+_quarantine/

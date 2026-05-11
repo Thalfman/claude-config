@@ -1,0 +1,10 @@
+pymupdf>=1.23
+reportlab>=4.0
+pillow>=10
+simplekml>=1.3
+shapely>=2.0
+pyproj>=3.6
+requests>=2.31
+# python-docx is no longer required: PDFs are produced directly via reportlab
+# (see scripts/render_md_to_pdf.py). Re-add only if a future workflow needs
+# .docx output.

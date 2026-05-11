@@ -1,0 +1,145 @@
+{
+  "version": 2,
+  "plugins": {
+    "engineering-skills@claude-code-skills": [
+      {
+        "scope": "local",
+        "projectPath": "C:\\Users\\thalf",
+        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\claude-code-skills\\engineering-skills\\2.2.0",
+        "version": "2.2.0",
+        "installedAt": "2026-04-06T14:41:49.407Z",
+        "lastUpdated": "2026-05-04T19:07:46.554Z",
+        "gitCommitSha": "a96cc20bb5e0d47ff7fdcee967eebd561c99deb2"
+      }
+    ],
+    "document-skills@anthropic-agent-skills": [
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\anthropic-agent-skills\\document-skills\\98669c11ca63",
+        "version": "98669c11ca63",
+        "installedAt": "2026-04-06T14:44:15.371Z",
+        "lastUpdated": "2026-05-04T19:07:46.554Z",
+        "gitCommitSha": "98669c11ca63e9c81c11501e1437e5c47b556621"
+      }
+    ],
+    "superpowers@claude-plugins-official": [
+      {
+        "scope": "project",
+        "projectPath": "C:\\Users\\thalf",
+        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\claude-plugins-official\\superpowers\\5.1.0",
+        "version": "5.1.0",
+        "installedAt": "2026-04-14T19:31:09.243Z",
+        "lastUpdated": "2026-05-11T14:45:53.540Z",
+        "gitCommitSha": "917e5f53b16b115b70a3a355ed5f4993b9f8b73d"
+      },
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\claude-plugins-official\\superpowers\\5.1.0",
+        "version": "5.1.0",
+        "installedAt": "2026-05-04T19:13:01.080Z",
+        "lastUpdated": "2026-05-04T22:12:26.048Z",
+        "gitCommitSha": "e7a2d16476bf042e9add4699c9d018a90f86e4a6"
+      }
+    ],
+    "codex@openai-codex": [
+      {
+        "scope": "project",
+        "projectPath": "C:\\Users\\thalf",
+        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\openai-codex\\codex\\1.0.4",
+        "version": "1.0.4",
+        "installedAt": "2026-04-24T21:59:55.175Z",
+        "lastUpdated": "2026-05-04T19:07:46.554Z",
+        "gitCommitSha": "807e03ac9d5aa23bc395fdec8c3767500a86b3cf"
+      }
+    ],
+    "frontend-design@claude-plugins-official": [
+      {
+        "scope": "project",
+        "projectPath": "C:\\Users\\thalf",
+        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\claude-plugins-official\\frontend-design\\unknown",
+        "version": "unknown",
+        "installedAt": "2026-04-26T01:48:01.008Z",
+        "lastUpdated": "2026-05-04T19:07:46.554Z"
+      },
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\claude-plugins-official\\frontend-design\\unknown",
+        "version": "unknown",
+        "installedAt": "2026-05-04T19:16:45.756Z",
+        "lastUpdated": "2026-05-04T19:16:45.756Z"
+      }
+    ],
+    "context7@claude-plugins-official": [
+      {
+        "scope": "project",
+        "projectPath": "C:\\Users\\thalf",
+        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\claude-plugins-official\\context7\\unknown",
+        "version": "unknown",
+        "installedAt": "2026-04-26T01:48:07.383Z",
+        "lastUpdated": "2026-05-04T19:07:46.554Z"
+      }
+    ],
+    "finance-skills@claude-code-skills": [
+      {
+        "scope": "local",
+        "projectPath": "C:\\Users\\thalf",
+        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\claude-code-skills\\finance-skills\\2.1.2",
+        "version": "2.1.2",
+        "installedAt": "2026-05-04T19:07:46.554Z",
+        "lastUpdated": "2026-05-04T19:07:46.554Z",
+        "gitCommitSha": "a96cc20bb5e0d47ff7fdcee967eebd561c99deb2"
+      }
+    ],
+    "pm-skills@claude-code-skills": [
+      {
+        "scope": "local",
+        "projectPath": "C:\\Users\\thalf",
+        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\claude-code-skills\\pm-skills\\2.1.2",
+        "version": "2.1.2",
+        "installedAt": "2026-05-04T19:07:46.554Z",
+        "lastUpdated": "2026-05-04T19:07:46.554Z",
+        "gitCommitSha": "a96cc20bb5e0d47ff7fdcee967eebd561c99deb2"
+      }
+    ],
+    "product-skills@claude-code-skills": [
+      {
+        "scope": "local",
+        "projectPath": "C:\\Users\\thalf",
+        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\claude-code-skills\\product-skills\\2.1.2",
+        "version": "2.1.2",
+        "installedAt": "2026-05-04T19:07:46.554Z",
+        "lastUpdated": "2026-05-04T19:07:46.554Z",
+        "gitCommitSha": "a96cc20bb5e0d47ff7fdcee967eebd561c99deb2"
+      }
+    ],
+    "skill-creator@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\claude-plugins-official\\skill-creator\\unknown",
+        "version": "unknown",
+        "installedAt": "2026-05-04T19:11:41.304Z",
+        "lastUpdated": "2026-05-04T19:11:41.304Z"
+      }
+    ],
+    "context-mode@context-mode": [
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\context-mode\\context-mode\\1.0.111",
+        "version": "1.0.111",
+        "installedAt": "2026-05-04T19:16:25.625Z",
+        "lastUpdated": "2026-05-04T19:17:44.229Z",
+        "gitCommitSha": "d77b25605d41784e8c256efd12e5a453e0dac498"
+      }
+    ],
+    "claude-mem@thedotmack": [
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\thedotmack\\claude-mem\\12.6.0",
+        "version": "12.6.0",
+        "installedAt": "2026-05-04T19:16:39.251Z",
+        "lastUpdated": "2026-05-04T19:16:39.251Z",
+        "gitCommitSha": "43037782a8e585a9c0ddcce1460fe5d88e8f5fb6"
+      }
+    ]
+  }
+}

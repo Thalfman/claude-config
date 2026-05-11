@@ -1,0 +1,9 @@
+# Core (required)
+python-docx>=0.8.11
+
+# Optional (graceful fallback if missing)
+pymupdf>=1.23.0      # PDF reading (parse_jd, parse_master)
+docx2pdf>=0.1.8      # DOCX → PDF (Windows: uses Word; macOS: uses Word/LibreOffice)
+
+# Dev / test
+pytest>=7.0
