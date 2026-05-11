@@ -1,0 +1,325 @@
+# SKILL.md frontmatter audit -- 2026-05-11
+
+Scanned **74 user skills** under `~/.claude/skills/` and **591 marketplace skills** under `~/.claude/plugins/marketplaces/`.
+
+## Method
+
+Used PyYAML (`yaml.safe_load`) to actually parse the frontmatter. Block scalars (`>`, `|`) are handled correctly -- this scan does NOT false-positive on multi-line descriptions.
+
+Flagged issues:
+
+- `no_opening_fence` / `no_closing_fence` -- frontmatter delimiters missing.
+- `yaml_parse_error` -- PyYAML refused to parse the frontmatter.
+- `frontmatter_not_mapping` -- top level is not a YAML mapping.
+- `missing_required_field` -- `name` or `description` absent.
+- `description_wrong_type` -- `description` value parsed as non-string (e.g. dict, list).
+- `extra_keys` -- informational only; not flagged as a real issue. Lists keys outside the canonical set.
+
+## Summary
+
+- User skills: **0 real issues** (48 informational `extra_keys`).
+- Marketplace skills: **288 real issues** (137 informational `extra_keys`).
+
+## User skills
+
+_No real issues found. The plan's §6/R7 starter case (`task-observer/SKILL.md`) parses correctly with PyYAML -- its `description: >` block scalar is valid; the previous audit's finding was a false positive from a naive line-based parser._
+
+## Marketplace skills (upstream)
+
+**Do not edit in place** -- `gsd-update` and marketplace refresh would revert. File an issue upstream or quarantine the marketplace (see Phase 2 step 2 for `claude-code-skills`).
+
+### Counts by marketplace
+
+- `claude-code-skills` -- **285** real issues
+- `thedotmack` -- **3** real issues
+
+### Detail (real issues only; informational extra-keys omitted)
+
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/a11y-audit/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/ab-test-setup/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/ad-creative/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/adversarial-reviewer/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/agent-designer/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/agent-protocol/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/agent-workflow-designer/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/agenthub/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/agile-product-owner/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/ai-security/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/ai-seo/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/analytics-tracking/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/api-design-reviewer/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/api-test-suite-builder/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/app-store-optimization/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/atlassian-admin/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/atlassian-templates/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/autoresearch-agent/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/aws-solution-architect/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/azure-cloud-architect/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/behuman/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/board/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/board-deck-builder/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/board-meeting/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/board-prep/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/brand-guidelines/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/browser-automation/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/browserstack/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/business-growth-bundle/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/business-investment-advisor/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/c-level-advisor-bundle/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/c-level-advisor-main/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/campaign-analytics/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/capa-officer/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/ceo-advisor/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/cfo-advisor/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/challenge/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/change-management/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/changelog/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/changelog-generator/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/chief-of-staff/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/chro-advisor/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/churn-prevention/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/ci-cd-pipeline-builder/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/ciso-advisor/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/cloud-security/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/cmd-a11y-audit/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/cmd-code-to-prd/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/cmd-focused-fix/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/cmo-advisor/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/code-reviewer/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/code-to-prd/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/code-tour/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/codebase-onboarding/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/cold-email/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/company-os/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/competitive-intel/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/competitive-matrix/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/competitive-teardown/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/competitor-alternatives/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/confluence-expert/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/content-creator/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/content-humanizer/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/content-production/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/content-strategist/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/content-strategy/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/context-engine/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/contract-and-proposal-writer/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/coo-advisor/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/copy-editing/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/copywriting/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/coverage/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/cpo-advisor/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/cro-advisor/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/cs-agile-product-owner/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/cs-ceo-advisor/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/cs-content-creator/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/cs-cto-advisor/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/cs-demand-gen-specialist/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/cs-engineering-lead/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/cs-financial-analyst/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/cs-growth-strategist/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/cs-onboard/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/cs-product-analyst/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/cs-product-manager/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/cs-product-strategist/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/cs-project-manager/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/cs-quality-regulatory/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/cs-senior-engineer/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/cs-ux-researcher/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/cs-workspace-admin/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/cto-advisor/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/culture-architect/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/customer-success-manager/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/data-quality-auditor/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/database-designer/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/database-schema-designer/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/decision-logger/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/demo-video/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/dependency-auditor/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/devops-engineer/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/docker-development/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/email-sequence/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/email-template-builder/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/engineering-bundle/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/engineering-main/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/engineering-team-bundle/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/env-secrets-manager/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/epic-design/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/eval/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/executive-mentor/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/experiment-designer/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/extract/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/fda-consultant-specialist/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/finance-bundle/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/finance-lead/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/financial-analyst/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/financial-health/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/fix/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/focused-fix/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/form-cro/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/founder-coach/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/free-tool-strategy/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/gcp-cloud-architect/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/gdpr-dsgvo-expert/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/generate/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/git-worktree-manager/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/google-workspace/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/google-workspace-cli/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/growth-marketer/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/hard-call/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/helm-chart-builder/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/incident-commander/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/incident-response/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/information-security-manager-iso27001/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/init/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/internal-narrative/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/interview-system-designer/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/intl-expansion/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/isms-audit-expert/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/jira-expert/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/landing-page-generator/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/launch-strategy/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/llm-cost-optimizer/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/loop/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/ma-playbook/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/marketing-bundle/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/marketing-context/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/marketing-demand-acquisition/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/marketing-ideas/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/marketing-ops/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/marketing-psychology/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/marketing-skill-bundle/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/marketing-strategy-pmm/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/mcp-server-builder/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/mdr-745-specialist/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/meeting-analyzer/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/merge/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/migrate/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/migration-architect/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/monorepo-navigator/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/ms365-tenant-manager/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/observability-designer/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/okr/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/onboarding-cro/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/org-health-diagnostic/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/page-cro/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/paid-ads/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/paywall-upgrade-cro/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/performance-profiler/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/persona/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/pipeline/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/playwright-pro/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/plugin-audit/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/popup-cro/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/postmortem/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/pr-review-expert/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/prd/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/pricing-strategy/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/product-analytics/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/product-bundle/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/product-discovery/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/product-manager/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/product-manager-toolkit/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/product-strategist/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/product-team-bundle/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/programmatic-seo/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/project-health/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/project-management-bundle/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/promote/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/prompt-engineer-toolkit/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/prompt-governance/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/qms-audit-expert/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/quality-documentation-manager/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/quality-manager-qmr/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/quality-manager-qms-iso13485/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/ra-qm-team-bundle/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/ra-qm-team-main/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/rag-architect/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/README/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/red-team/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/referral-program/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/regulatory-affairs-head/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/release-manager/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/remember/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/report/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/research-summarizer/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/resume/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/retro/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/revenue-operations/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/review/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/rice/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/risk-management-specialist/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/roadmap-communicator/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/run/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/runbook-generator/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/saas-health/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/saas-metrics-coach/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/saas-scaffolder/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/sales-engineer/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/sample-skill/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/scenario-war-room/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/schema-markup/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/scrum-master/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/secrets-vault-manager/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/security-pen-testing/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/self-eval/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/self-improving-agent/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/senior-architect/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/senior-backend/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/senior-computer-vision/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/senior-data-engineer/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/senior-data-scientist/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/senior-devops/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/senior-frontend/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/senior-fullstack/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/senior-ml-engineer/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/senior-pm/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/senior-prompt-engineer/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/senior-qa/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/senior-secops/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/senior-security/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/seo-audit/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/seo-auditor/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/setup/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/signup-flow-cro/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/site-architecture/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/skill-security-auditor/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/skill-tester/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/skills-init/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/skills-review/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/skills-run/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/skills-status/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/snowflake-development/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/soc2-compliance/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/social-content/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/social-media-analyzer/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/social-media-manager/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/solo-founder/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/spawn/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/spec-driven-workflow/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/sprint-health/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/sprint-plan/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/sql-database-assistant/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/startup-cto/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/status/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/strategic-alignment/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/stress-test/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/stripe-integration-expert/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/tdd/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/tdd-guide/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/team-communications/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/tech-debt/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/tech-debt-tracker/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/tech-stack-evaluator/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/TEMPLATE/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/terraform-patterns/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/testrail/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/threat-detection/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/ui-design-system/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/user-story/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/ux-researcher-designer/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/video-content-strategist/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/.gemini/skills/x-twitter-growth/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/claude-code-skills/engineering/skill-tester/assets/sample-skill/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/thedotmack/openclaw/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/thedotmack/openclaw/skills/do/SKILL.md` -- **no_opening_fence**
+- `plugins/marketplaces/thedotmack/openclaw/skills/make-plan/SKILL.md` -- **no_opening_fence**

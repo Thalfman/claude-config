@@ -63,10 +63,10 @@
       },
       {
         "scope": "user",
-        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\claude-plugins-official\\frontend-design\\099a8c419454",
-        "version": "099a8c419454",
+        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\claude-plugins-official\\frontend-design\\25dff3f49107",
+        "version": "25dff3f49107",
         "installedAt": "2026-05-04T19:16:45.756Z",
-        "lastUpdated": "2026-05-11T17:12:05.650Z"
+        "lastUpdated": "2026-05-11T19:41:32.118Z"
       }
     ],
     "context7@claude-plugins-official": [
@@ -115,10 +115,10 @@
     "skill-creator@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\claude-plugins-official\\skill-creator\\099a8c419454",
-        "version": "099a8c419454",
+        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\claude-plugins-official\\skill-creator\\25dff3f49107",
+        "version": "25dff3f49107",
         "installedAt": "2026-05-04T19:11:41.304Z",
-        "lastUpdated": "2026-05-11T17:12:05.660Z"
+        "lastUpdated": "2026-05-11T19:41:32.139Z"
       }
     ],
     "context-mode@context-mode": [
