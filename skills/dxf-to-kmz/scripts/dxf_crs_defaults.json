@@ -1,0 +1,11 @@
+{
+  "Indiana": "EPSG:2965",
+  "IN": "EPSG:2965",
+  "Indiana-East": "EPSG:2965",
+  "Indiana-West": "EPSG:2966",
+  "Florida-North": "EPSG:2238",
+  "Florida-East": "EPSG:2236",
+  "Florida-West": "EPSG:2237",
+  "Ohio-North": "EPSG:3734",
+  "Ohio-South": "EPSG:3735"
+}
