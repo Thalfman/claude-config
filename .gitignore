@@ -2,6 +2,9 @@
 .credentials.json
 mcp-needs-auth-cache.json
 
+# Local-only settings (machine-specific paths; not synced cross-platform)
+settings.local.json
+
 # Session/runtime state
 sessions/
 projects/
