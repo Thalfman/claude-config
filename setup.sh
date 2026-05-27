@@ -31,7 +31,11 @@ if [ ! -d "$DEST/.git" ]; then
   git clone --depth 1 \
     "https://x-access-token:${CLAUDE_CONFIG_TOKEN}@github.com/${REPO_SLUG}.git" "$DEST"
 else
-  git -C "$DEST" fetch --depth 1 origin && git -C "$DEST" reset --hard '@{u}' || true
+  # Force the checkout to the latest default branch. Non-fatal, but warn loudly:
+  # silently keeping a stale checkout is what makes new skills/plugins "not show up".
+  git -C "$DEST" fetch --depth 1 origin main \
+    && git -C "$DEST" reset --hard origin/main \
+    || echo "WARN: could not update $DEST; using existing (possibly stale) checkout" >&2
 fi
 
 mkdir -p "$TARGET"
@@ -52,10 +56,19 @@ link_children() {
 }
 for sub in skills agents commands; do link_children "$sub"; done
 
-# Whole-dir references resolved by GSD agents/skills (@$HOME/.claude/get-shit-done/...).
-for dir in hooks output-styles get-shit-done memory; do
+# Whole-dir config references.
+for dir in hooks output-styles memory; do
   [ -d "$DEST/$dir" ] && ln -sfn "$DEST/$dir" "$TARGET/$dir"
 done
+
+# GSD is no longer shipped. Drop any stale link/dir an earlier setup left behind so
+# rebuilt environments stop surfacing it. Only removes a symlink (safe); a real dir
+# is left alone and flagged.
+if [ -L "$TARGET/get-shit-done" ]; then
+  rm -f "$TARGET/get-shit-done"
+elif [ -d "$TARGET/get-shit-done" ]; then
+  echo "WARN: $TARGET/get-shit-done is a real directory (not our symlink); leaving it. Remove manually if GSD should be gone." >&2
+fi
 
 ln -sfn "$DEST/CLAUDE.md" "$TARGET/CLAUDE.md"
 
@@ -83,10 +96,18 @@ if [ "$INSTALL_PLUGINS" = "1" ] && command -v claude >/dev/null 2>&1; then
   snap_mkts="$DEST/plugins/known_marketplaces.json"
   snap_plugs="$DEST/plugins/installed_plugins.json"
 
-  { jq -r '.extraKnownMarketplaces // {} | to_entries[] | .value.source.repo // empty' "$DEST/settings.json"
-    if [ -f "$snap_mkts" ]; then jq -r 'to_entries[] | .value.source.repo // empty' "$snap_mkts"; fi
-  } | sort -u | while read -r repo; do
-        [ -n "$repo" ] && { claude plugin marketplace add "github://$repo" || true; }
+  # Marketplaces come in two source shapes: GitHub (source.repo = "owner/name") and
+  # plain git (source.url = "https://.../x.git"). Earlier this only read .repo, which
+  # silently dropped git-sourced marketplaces like understand-anything, so their
+  # plugins never installed. Prefer .repo, fall back to .url, then add by shape.
+  { jq -r '.extraKnownMarketplaces // {} | to_entries[] | .value.source.repo // .value.source.url // empty' "$DEST/settings.json"
+    if [ -f "$snap_mkts" ]; then jq -r 'to_entries[] | .value.source.repo // .value.source.url // empty' "$snap_mkts"; fi
+  } | sort -u | while read -r src; do
+        [ -n "$src" ] || continue
+        case "$src" in
+          *://*|*.git) claude plugin marketplace add "$src" || true ;;        # git/https URL
+          */*)         claude plugin marketplace add "github://$src" || true ;; # owner/name
+        esac
       done
 
   { jq -r '.enabledPlugins // {} | to_entries[] | select(.value == true) | .key' "$DEST/settings.json"
