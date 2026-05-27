@@ -22,6 +22,9 @@ backups/
 context-mode/
 history.jsonl
 
+# Native session logger: machine-local cross-project index (memory/*.md stay tracked)
+memory/session-log.jsonl
+
 # Caches
 cache/
 plugins/cache/
