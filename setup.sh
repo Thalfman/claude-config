@@ -61,16 +61,18 @@ for dir in hooks output-styles memory; do
   [ -d "$DEST/$dir" ] && ln -sfn "$DEST/$dir" "$TARGET/$dir"
 done
 
-# GSD is no longer shipped. Drop any stale link/dir an earlier setup left behind so
-# rebuilt environments stop surfacing it. Only removes a symlink (safe); a real dir
-# is left alone and flagged.
-if [ -L "$TARGET/get-shit-done" ]; then
-  rm -f "$TARGET/get-shit-done"
-elif [ -d "$TARGET/get-shit-done" ]; then
-  echo "WARN: $TARGET/get-shit-done is a real directory (not our symlink); leaving it. Remove manually if GSD should be gone." >&2
-fi
+# GSD is no longer part of this config. Cloud filesystems persist, so a prior
+# install (or base image) can leave GSD behind every session. Purge it outright,
+# scoped strictly to GSD-named paths so env built-ins are untouched.
+rm -rf "$TARGET/get-shit-done" "$TARGET/gsd-file-manifest.json"
+for d in skills agents hooks; do
+  for stale in "$TARGET/$d"/gsd-*; do
+    [ -e "$stale" ] && rm -rf "$stale"
+  done
+done
 
 ln -sfn "$DEST/CLAUDE.md" "$TARGET/CLAUDE.md"
+ln -sfn "$DEST/statusline.js" "$TARGET/statusline.js"
 
 # 3. Merge settings.json: repo values win on scalars, the environment's own
 #    hooks are preserved, and permissions.allow is unioned rather than replaced.
@@ -81,6 +83,16 @@ jq -s '
   | ($env * $cfg)
   | .permissions.allow = ((($env.permissions.allow // []) + ($cfg.permissions.allow // [])) | unique)
 ' "$TARGET/settings.json" "$DEST/settings.json" > "$tmp" && mv "$tmp" "$TARGET/settings.json"
+
+# settings.json captures statusLine.command from the author's Windows machine
+# (an absolute C:\ path). Repoint it at the linked statusline.js in this
+# environment so the HUD renders here too.
+if [ -f "$TARGET/statusline.js" ]; then
+  tmp="$(mktemp)"
+  jq --arg cmd "node \"$TARGET/statusline.js\"" \
+     'if .statusLine then .statusLine.command = $cmd else . end' \
+     "$TARGET/settings.json" > "$tmp" && mv "$tmp" "$TARGET/settings.json"
+fi
 
 # 4. Plugins are not just files: register every marketplace and install every
 #    plugin captured from the Windows machine. Marketplace sources are unioned
