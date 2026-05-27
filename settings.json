@@ -5,13 +5,22 @@
     ],
     "defaultMode": "auto"
   },
+  "statusLine": {
+    "type": "command",
+    "command": "node \"C:/Users/thalf/.claude/statusline.js\"",
+    "padding": 0,
+    "refreshInterval": 10
+  },
   "enabledPlugins": {
     "document-skills@anthropic-agent-skills": true,
     "superpowers@claude-plugins-official": true,
     "codex@openai-codex": true,
     "context7@claude-plugins-official": true,
     "skill-creator@claude-plugins-official": true,
-    "andrej-karpathy-skills@karpathy-skills": true
+    "andrej-karpathy-skills@karpathy-skills": true,
+    "understand-anything@understand-anything": true,
+    "bmad-pro-skills@bmad-method": true,
+    "bmad-method-lifecycle@bmad-method": true
   },
   "extraKnownMarketplaces": {
     "anthropic-agent-skills": {
@@ -31,9 +40,25 @@
         "source": "github",
         "repo": "forrestchang/andrej-karpathy-skills"
       }
+    },
+    "understand-anything": {
+      "source": {
+        "source": "git",
+        "url": "https://github.com/Lum1104/Understand-Anything.git"
+      }
+    },
+    "bmad-method": {
+      "source": {
+        "source": "github",
+        "repo": "bmad-code-org/bmad-method",
+        "sparsePaths": [
+          ".claude-plugin",
+          "src"
+        ]
+      }
     }
   },
-  "outputStyle": "concise",
+  "outputStyle": "proactive",
   "effortLevel": "xhigh",
   "autoMemoryEnabled": true,
   "editorMode": "normal",
