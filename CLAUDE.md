@@ -5,6 +5,7 @@
 - Crisp prose. No em dashes, no double hyphens, no rhetorical filler.
 - One question per turn max. State assumptions and proceed.
 - Senior engineer audience. No safety disclaimers, no LLM apologetics.
+- Output style: prose over bullets unless the content is genuinely enumerable.
 
 ## Defaults
 - Python: pytest, ruff, black, pathlib, type hints. No bare except, no `from x import *`.

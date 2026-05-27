@@ -11,7 +11,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/thalf/.claude/hooks/gsd-check-update.js\""
+            "command": "node \"C:/Users/thalf/.claude/hooks/gsd-check-update.js\""
           }
         ]
       },
@@ -27,7 +27,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/thalf/.claude/hooks/context-mode-cache-heal.mjs\""
+            "command": "node \"C:/Users/thalf/.claude/hooks/context-mode-cache-heal.mjs\""
           }
         ]
       },
@@ -47,7 +47,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/thalf/.claude/hooks/gsd-context-monitor.js\"",
+            "command": "node \"C:/Users/thalf/.claude/hooks/gsd-context-monitor.js\"",
             "timeout": 10
           }
         ]
@@ -57,7 +57,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/thalf/.claude/hooks/gsd-read-injection-scanner.js\"",
+            "command": "node \"C:/Users/thalf/.claude/hooks/gsd-read-injection-scanner.js\"",
             "timeout": 5
           }
         ]
@@ -89,7 +89,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/thalf/.claude/hooks/gsd-prompt-guard.js\"",
+            "command": "node \"C:/Users/thalf/.claude/hooks/gsd-prompt-guard.js\"",
             "timeout": 5
           }
         ]
@@ -99,7 +99,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/thalf/.claude/hooks/gsd-read-guard.js\"",
+            "command": "node \"C:/Users/thalf/.claude/hooks/gsd-read-guard.js\"",
             "timeout": 5
           }
         ]
@@ -109,7 +109,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/thalf/.claude/hooks/gsd-workflow-guard.js\"",
+            "command": "node \"C:/Users/thalf/.claude/hooks/gsd-workflow-guard.js\"",
             "timeout": 5
           }
         ]
@@ -159,10 +159,9 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/thalf/.claude/hooks/gsd-statusline.js\""
+    "command": "node \"C:/Users/thalf/.claude/hooks/gsd-statusline.js\""
   },
   "enabledPlugins": {
-    "engineering-skills@claude-code-skills": false,
     "document-skills@anthropic-agent-skills": true,
     "superpowers@claude-plugins-official": true,
     "codex@openai-codex": true,
@@ -170,15 +169,10 @@
     "context7@claude-plugins-official": true,
     "skill-creator@claude-plugins-official": true,
     "context-mode@context-mode": true,
-    "claude-mem@thedotmack": true
+    "claude-mem@thedotmack": true,
+    "andrej-karpathy-skills@karpathy-skills": true
   },
   "extraKnownMarketplaces": {
-    "claude-code-skills": {
-      "source": {
-        "source": "github",
-        "repo": "alirezarezvani/claude-skills"
-      }
-    },
     "anthropic-agent-skills": {
       "source": {
         "source": "github",
@@ -202,8 +196,15 @@
         "source": "github",
         "repo": "thedotmack/claude-mem"
       }
+    },
+    "karpathy-skills": {
+      "source": {
+        "source": "github",
+        "repo": "forrestchang/andrej-karpathy-skills"
+      }
     }
   },
+  "outputStyle": "concise",
   "effortLevel": "xhigh",
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true

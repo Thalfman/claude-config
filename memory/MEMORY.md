@@ -1,0 +1,3 @@
+- [Codex auto-address rule (ATLAS)](feedback_codex-auto-address.md) — always address Codex review threads, commit on PR branch, push, resolve threads, no asking.
+- [ATLAS repo CLAUDE.md](reference_atlas-repo-claudemd.md) — repo-level Claude instructions live at `ATLAS-PM-Ops-OS/CLAUDE.md`.
+- [Claude plan auth (no API keys)](user_claude-plan-auth.md) — Tom uses Pro/Max subscription via OAuth; never use `ANTHROPIC_API_KEY`.

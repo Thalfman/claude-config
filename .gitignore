@@ -23,6 +23,8 @@ history.jsonl
 cache/
 plugins/cache/
 plugins/data/
+plugins/plugin-catalog-cache.json
+plugins/install-counts-cache.json
 statsig/
 telemetry/
 stats-cache.json
@@ -30,6 +32,11 @@ stats-cache.json
 
 # Plugin marketplaces (large, regenerable via marketplace registry)
 plugins/marketplaces/
+
+# Scratch and audit outputs
+_archive/
+_audits/
+plans/
 
 # Build artifacts
 **/__pycache__/

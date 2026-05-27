@@ -22,6 +22,14 @@ PATTERNS = [
     (r"\bchmod\s+-R\s+777\s+/", "chmod 777 on root"),
     (r"\b(curl|wget)\s+[^|]*\|\s*(sudo\s+)?(bash|sh|zsh)\b",
      "curl pipe shell"),
+    (r"\bsudo\b", "sudo invocation"),
+    (r"\bnpm\s+(install|i)\s+(-g|--global)\b", "global npm install"),
+    (r"\bpip\s+install\s+.*--break-system-packages\b", "pip break-system-packages"),
+    (r"\bgit\s+reset\s+--hard\s+(origin/|upstream/)", "destructive remote reset"),
+    (r"\bgit\s+clean\s+-[a-zA-Z]*f[a-zA-Z]*d", "git clean -fd"),
+    (r"\bchmod\s+-R\s+777\b", "chmod 777 recursive"),
+    (r"\beval\s+\$\(", "eval of command substitution"),
+    (r"\bbase64\s+-d.*\|\s*(bash|sh|zsh|python)\b", "base64 decode piped to shell"),
 ]
 
 

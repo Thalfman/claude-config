@@ -3,7 +3,13 @@
     "allow": [
       "PowerShell(Get-ChildItem *)",
       "PowerShell(Test-Path *)",
-      "PowerShell(New-Item *)"
+      "PowerShell(New-Item *)",
+      "PowerShell(tar -xf \"C:\\\\Users\\\\thalf\\\\OneDrive\\\\Desktop\\\\motorola-pm-toolkit.tar\" -C \"C:\\\\Users\\\\thalf\\\\OneDrive\\\\Desktop\")",
+      "PowerShell(if \\($?\\) { \"extracted ok\" })",
+      "Skill(evm-analysis)",
+      "Skill(evm-analysis:*)",
+      "PowerShell(claude plugin list 2>&1)"
     ]
-  }
+  },
+  "enabledPlugins": {}
 }
