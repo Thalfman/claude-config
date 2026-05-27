@@ -69,16 +69,29 @@ jq -s '
   | .permissions.allow = ((($env.permissions.allow // []) + ($cfg.permissions.allow // [])) | unique)
 ' "$TARGET/settings.json" "$DEST/settings.json" > "$tmp" && mv "$tmp" "$TARGET/settings.json"
 
-# 4. Plugins are not just files: register the marketplaces and install the
-#    enabled plugins, both driven from settings.json so they stay in sync.
+# 4. Plugins are not just files: register every marketplace and install every
+#    plugin captured from the Windows machine. Marketplace sources are unioned
+#    from settings.json (extraKnownMarketplaces) AND the captured snapshot
+#    (plugins/known_marketplaces.json). The snapshot is what makes this robust:
+#    it carries the repo for built-in marketplaces like claude-plugins-official,
+#    so we register them explicitly instead of assuming the environment already
+#    has them (it doesn't, in a fresh web container -- which silently dropped the
+#    4 plugins sourced from claude-plugins-official). The plugin list is likewise
+#    the union of settings.json's enabledPlugins and the snapshot's installed set.
 #    Needs network + the `claude` CLI; failures are non-fatal.
 if [ "$INSTALL_PLUGINS" = "1" ] && command -v claude >/dev/null 2>&1; then
-  jq -r '.extraKnownMarketplaces // {} | to_entries[] | .value.source.repo' "$DEST/settings.json" \
-    | while read -r repo; do
+  snap_mkts="$DEST/plugins/known_marketplaces.json"
+  snap_plugs="$DEST/plugins/installed_plugins.json"
+
+  { jq -r '.extraKnownMarketplaces // {} | to_entries[] | .value.source.repo // empty' "$DEST/settings.json"
+    if [ -f "$snap_mkts" ]; then jq -r 'to_entries[] | .value.source.repo // empty' "$snap_mkts"; fi
+  } | sort -u | while read -r repo; do
         [ -n "$repo" ] && { claude plugin marketplace add "github://$repo" || true; }
       done
-  jq -r '.enabledPlugins // {} | to_entries[] | select(.value == true) | .key' "$DEST/settings.json" \
-    | while read -r plugin; do
+
+  { jq -r '.enabledPlugins // {} | to_entries[] | select(.value == true) | .key' "$DEST/settings.json"
+    if [ -f "$snap_plugs" ]; then jq -r '.plugins // {} | keys[]' "$snap_plugs"; fi
+  } | sort -u | while read -r plugin; do
         [ -n "$plugin" ] && { claude plugin install "$plugin" || true; }
       done
 fi
