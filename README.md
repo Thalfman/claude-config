@@ -1,168 +1,168 @@
 # Personal Claude Code config
 
-This is `~/.claude/` — global Claude Code configuration for user `thalf`. Tracked
-in git so the config is reproducible from a fresh machine.
+This is `~/.claude/` — global Claude Code configuration for user `thalf`, tracked
+in git so it is reproducible.
+
+**Primary purpose:** `setup.sh` imports this config into Claude Code **cloud
+sessions** (claude.ai/code) by overlaying it onto the environment's existing
+`~/.claude/`. The same repo also bootstraps a fresh local machine (see below).
 
 ## What lives here
 
 - `CLAUDE.md` — global preferences loaded into every session.
-- `settings.json` — Claude Code runtime config: enabled plugins, marketplace
-  registry, hook wiring, statusLine, permissions, effort level.
-- `settings.local.json` — per-machine permissions (PowerShell auto-allow rules).
-  **Not gitignored**, but treat as machine-local: do not rely on values being
-  identical across machines.
-- `agents/` — 39 agent definitions (6 core + 33 GSD-namespaced).
-- `skills/` — 75 user-owned skills (8 domain + 65 GSD-namespaced + 2 misc).
-- `hooks/` — 18 hook scripts (5 Python v2, 10 GSD JS/sh, 2 GSD support, 1 plugin
-  bridge). 15 wired in `settings.json`.
-- `plans/` — accumulated `/plan-mode` artifacts. Plans older than 30 days move
-  to `plans/_archive/`.
-- `get-shit-done/` — the GSD planning framework's bin/contexts/templates/
-  workflows. Reference target for many GSD agents (`@$HOME/.claude/get-shit-done/...`).
-- `_archive/` — long-term-retention snapshots (v1 hooks, etc.). Each subdir
-  carries its own README.md.
-- `_audits/` — generated audit reports.
-- `_quarantine/<date>/` — items pulled out of the active config pending review.
-  Gitignored; local-only.
-- `_pre_v2_backup/` is **historical**; was promoted to `_archive/2026-05-11-v1-hooks/`
-  on 2026-05-11.
+- `settings.json` — runtime config: enabled plugins, marketplace registry,
+  statusLine, permissions, effort level. Note: it does **not** currently wire any
+  `hooks` (see `hooks/` below).
+- `setup.sh` — the cloud-import bootstrap. Clones/updates this repo and overlays
+  it onto `~/.claude/`. See ARCHITECTURE.md for the mechanics.
+- `statusline.js` — the status-line HUD (branch, context-window usage, model
+  effort). Wired via `settings.json` → `statusLine.command`.
+- `skills/` — 42 user-owned skills (writing, planning, code-quality, OpenSpec,
+  issue/PRD, design, teaching, meta). One dir per skill, each with `SKILL.md`.
+- `agents/` — 6 subagent definitions: `explorer`, `implementer`, `judge`,
+  `planner`, `reviewer`, `tester`.
+- `commands/` — 8 slash commands: `opsx/{apply,archive,explore,propose}`,
+  `resume`, `ship-check`, `status`, `sweep`.
+- `hooks/` — 6 Python hook scripts (`backup_transcript`, `block_dangerous`,
+  `format`, `protect_main`, `session_context`, `session_logger`). **Present but
+  not wired** in `settings.json`; they are inert until referenced under a
+  `hooks.<event>` key. `setup.sh` symlinks them so a session-level config can opt
+  in.
+- `output-styles/` — `concise.md` (custom output style; `settings.json` currently
+  selects the built-in `proactive` style).
+- `memory/` — tracked memory index (`MEMORY.md`) and individual memory files.
+- `plugins/installed_plugins.json`, `plugins/known_marketplaces.json` — captured
+  plugin/marketplace registry. `setup.sh` replays these to install plugins in a
+  fresh environment (the plugin *payloads* under `plugins/cache/` and
+  `plugins/marketplaces/` are gitignored and re-fetched).
+- `_archive/`, `_audits/`, `plans/` — historical snapshots, audit reports, and
+  planning artifacts. Already-tracked; `.gitignore` blocks new additions.
 
-See `ARCHITECTURE.md` for the runtime model: hook lifecycle, plugin list with
-purpose, context loading order.
+See `ARCHITECTURE.md` for the import model, settings contents, and plugin list.
 
-## What does NOT live here (gitignored)
+## Plugins (9 enabled, 6 marketplaces)
 
-- `.credentials.json` — Claude Code's OAuth tokens. Created by `claude login`.
-- `mcp-needs-auth-cache.json`, `stats-cache.json`, `.last-cleanup` — runtime caches.
-- `sessions/`, `projects/`, `transcript-backups/`, `history.jsonl` — session
-  artifacts and per-project memory.
-- `file-history/`, `paste-cache/`, `shell-snapshots/`, `session-env/`, `ide/`,
-  `todos/`, `tasks/`, `debug/`, `skill-observations/`, `backups/`,
-  `context-mode/` — assorted runtime state and plugin caches.
-- `cache/`, `plugins/cache/`, `plugins/data/`, `statsig/`, `telemetry/` — caches.
-- `plugins/marketplaces/` — cloned marketplace contents (regenerable).
-- `logs/`, `_quarantine/` — runtime/transient.
-- `**/__pycache__/`, `**/*.pyc`, `**/.pytest_cache/`.
-
-## Prerequisites for bootstrap
-
-| Tool | Why | Where it shows up |
+| Plugin | Marketplace | Source |
 |---|---|---|
-| Claude Code CLI | the harness | `claude` on PATH |
-| Node.js (any LTS) | 10 JS hooks + statusLine + plugin runtime | settings.json hook commands |
-| Python 3 (with `pyyaml`) | 5 v2 hooks + audit scripts | `python` on PATH |
-| Git for Windows (or any `bash`) | 3 sh hooks | `bash` on PATH |
-| `gh` CLI (optional) | repo management | `gh` on PATH |
+| `superpowers` | claude-plugins-official | built-in |
+| `context7` | claude-plugins-official | built-in |
+| `skill-creator` | claude-plugins-official | built-in |
+| `document-skills` | anthropic-agent-skills | `github:anthropics/skills` |
+| `codex` | openai-codex | `github:openai/codex-plugin-cc` |
+| `andrej-karpathy-skills` | karpathy-skills | `github:forrestchang/andrej-karpathy-skills` |
+| `understand-anything` | understand-anything | `git:Lum1104/Understand-Anything` |
+| `bmad-pro-skills` | bmad-method | `github:bmad-code-org/bmad-method` |
+| `bmad-method-lifecycle` | bmad-method | `github:bmad-code-org/bmad-method` |
 
-On Windows: the `python3` executable is intercepted by the App Execution Alias;
-hook scripts intentionally use `python` (not `python3`).
+## Cloud import (primary use)
 
-## Bootstrap from clean checkout
+`setup.sh` is meant to run as the **environment setup script** for Claude Code
+cloud sessions.
 
-This is the procedure to recreate `~/.claude/` on a new machine.
+1. Provide a fine-grained, read-only GitHub PAT scoped to this repo as the
+   environment secret `CLAUDE_CONFIG_TOKEN`. Never inline the token.
+2. Point the environment's setup step at `setup.sh` (e.g. clone this repo and run
+   `bash setup.sh`, or paste its contents).
+3. On each session the script clones/updates the repo to `$CLAUDE_CONFIG_DIR`
+   (default `~/claude-config`), symlinks the file-based config into `~/.claude/`,
+   merges `settings.json`, and registers marketplaces + installs plugins.
+
+Tunables (env vars): `CLAUDE_CONFIG_TOKEN`, `CLAUDE_CONFIG_DIR`, `INSTALL_PLUGINS`
+(`1` default; `0` skips marketplace/plugin install).
+
+### Resetting a cloud environment
+
+Cloud environments **persist their filesystem** across sessions, and there is no
+UI "reset" button. `setup.sh` overlays onto whatever is already there, and also
+purges known-stale artifacts (e.g. a prior GSD install) on each run. For a fully
+clean slate, recreate the environment (Managed Agents API: delete the environment
+when no session references it, then create a new one) so `setup.sh` runs against a
+fresh `~/.claude/`. A one-time manual purge inside a session:
 
 ```bash
-# 1. Clone (the existing ~/.claude/ must not already be a git repo for this
-#    path; rename or remove first if needed).
+rm -rf ~/.claude/get-shit-done ~/claude-config   # drop stale config + checkout
+bash ~/claude-config/setup.sh                     # re-run (re-clones via token)
+```
+
+## Bootstrap a fresh local machine
+
+To recreate `~/.claude/` directly (the "clone AS `~/.claude`" path, distinct from
+the cloud overlay):
+
+```bash
+# 1. Clone (the existing ~/.claude/ must not already be a git repo at this path).
 git clone https://github.com/Thalfman/claude-config.git ~/.claude
 
-# 2. Install Claude Code CLI (https://docs.claude.com/claude-code) and
-#    authenticate. This creates ~/.claude/.credentials.json (NOT committed).
+# 2. Install the Claude Code CLI and authenticate (creates ~/.claude/.credentials.json,
+#    which is NOT committed).
 claude login
 
-# 3. Re-register the user-known marketplaces. settings.json's
-#    extraKnownMarketplaces records them but the contents under
-#    plugins/marketplaces/ are gitignored and must be re-fetched.
-claude plugin marketplace add github://anthropics/skills           # document-skills
-claude plugin marketplace add github://openai/codex-plugin-cc      # codex
-claude plugin marketplace add github://mksglu/context-mode         # context-mode
-claude plugin marketplace add github://thedotmack/claude-mem       # claude-mem
-# claude-plugins-official is built into Claude Code; no add needed.
-# claude-code-skills (alirezarezvani/claude-skills) is intentionally NOT
-# re-added: its plugin is disabled and Phase 2 quarantines the marketplace.
+# 3. Register the non-built-in marketplaces (contents under plugins/marketplaces/
+#    are gitignored and must be re-fetched). claude-plugins-official is built in.
+claude plugin marketplace add github://anthropics/skills
+claude plugin marketplace add github://openai/codex-plugin-cc
+claude plugin marketplace add github://forrestchang/andrej-karpathy-skills
+claude plugin marketplace add https://github.com/Lum1104/Understand-Anything.git
+claude plugin marketplace add github://bmad-code-org/bmad-method
 
 # 4. Install the enabled plugins.
 claude plugin install document-skills@anthropic-agent-skills
 claude plugin install superpowers@claude-plugins-official
-claude plugin install frontend-design@claude-plugins-official
 claude plugin install context7@claude-plugins-official
 claude plugin install skill-creator@claude-plugins-official
 claude plugin install codex@openai-codex
-claude plugin install context-mode@context-mode
-claude plugin install claude-mem@thedotmack
+claude plugin install andrej-karpathy-skills@karpathy-skills
+claude plugin install understand-anything@understand-anything
+claude plugin install bmad-pro-skills@bmad-method
+claude plugin install bmad-method-lifecycle@bmad-method
 
-# 5. Verify Python + PyYAML are usable (needed by _audits scripts).
-python -c "import yaml; print(yaml.__version__)"
-
-# 6. Start a session and confirm:
-#    - SessionStart hooks run without error
-#    - statusLine renders
-#    - skills list includes the 8 domain skills and the 65 gsd-* skills
+# 5. Start a session; confirm the skills list and statusLine render.
 claude
 ```
 
-## Where credentials live
+## Prerequisites
 
-**Not in this repo.** `.gitignore` excludes `.credentials.json`. Re-create on a
-fresh machine via `claude login`. If you need application credentials (API
-keys, etc.), use Claude Code's secret management — never inline.
+| Tool | Why |
+|---|---|
+| Claude Code CLI | the harness (`claude` on PATH) |
+| Node.js (any LTS) | `statusline.js` + plugin runtime |
+| Python 3 | the `hooks/` scripts, if wired |
+| `bash` + `jq` | `setup.sh` (clone, symlink, settings merge) |
+| `git` | clone/update |
+
+## What does NOT live here (gitignored)
+
+- `.credentials.json` — OAuth tokens. Re-created by `claude login`.
+- `settings.local.json` — per-machine settings (machine-specific paths).
+- `sessions/`, `projects/`, `transcript-backups/`, `history.jsonl`, `todos/`,
+  `tasks/`, `debug/`, `skill-observations/`, `backups/` — session/runtime state.
+- `daemon.*`, `daemon/`, `jobs/` — background daemon runtime state (locks, logs,
+  PIDs, pipe key, live job state).
+- `cache/`, `plugins/cache/`, `plugins/data/`, `plugins/marketplaces/`, `statsig/`,
+  `telemetry/` — caches and regenerable plugin payloads.
+- `memory/session-log.jsonl` — machine-local cross-project session index.
+- `**/__pycache__/`, `**/*.pyc`.
 
 ## How to add things
 
-### A new skill
+### A skill
+1. `mkdir ~/.claude/skills/<name>` and create `SKILL.md` with `name:` +
+   `description:` frontmatter (use a `>`/`|` block scalar if the description holds
+   `:` or quotes).
+2. Body is Markdown. Commit. Available on the next session start.
 
-1. `mkdir ~/.claude/skills/<skill-name>` and create `SKILL.md` with frontmatter:
-   ```yaml
-   ---
-   name: <skill-name>
-   description: >
-     One paragraph. Use a `>` or `|` block scalar if the description contains
-     `:`, `"`, or YAML-significant characters — see _audits/2026-05-11-skill-frontmatter.md.
-   ---
-   ```
-2. Body is Markdown.
-3. Commit. Skill becomes available on the next session start.
+### An agent
+Create `~/.claude/agents/<name>.md` with `name:`, `description:`, optional
+`tools:` and `model:` frontmatter. Keep it tight — see `agents/explorer.md`.
 
-### A new agent
+### A hook
+Write the script under `~/.claude/hooks/` (read stdin JSON, exit `0` to pass / `2`
+to block), then wire it in `settings.json` under the lifecycle event
+(`SessionStart`, `PreToolUse`, `PostToolUse`, `PreCompact`). Hooks are inert until
+wired.
 
-1. Create `~/.claude/agents/<name>.md` with frontmatter:
-   ```yaml
-   ---
-   name: <name>
-   description: <when to use this agent>
-   tools: Read, Grep, Bash      # optional, narrows the toolset
-   model: haiku                  # optional, for cheap agents
-   ---
-   ```
-2. Body describes what the agent does. Keep tight — see `agents/explorer.md`
-   (18 lines) for the exemplar.
+## Credentials
 
-### A new hook
-
-1. Write the script under `~/.claude/hooks/`. Prefer Python (`_log_run.py`
-   wrapper coming in Phase 3 will time it). Read stdin JSON, write to stdout,
-   exit 0 (pass) or 2 (block).
-2. Wire it in `settings.json` under the relevant lifecycle event
-   (`SessionStart`, `PreToolUse`, `PostToolUse`, `PreCompact`).
-3. Test with a fixture: `echo '{"tool_name":"Write"}' | python hooks/your_hook.py`.
-
-## Bootstrap reproducibility test
-
-After any change to this README or the bootstrap procedure:
-
-```bash
-# Use a throwaway location so the live ~/.claude/ is not touched.
-git clone https://github.com/Thalfman/claude-config.git /tmp/claude-bootstrap-test
-cd /tmp/claude-bootstrap-test
-# Open a new Claude Code session in this dir and follow the README verbatim.
-# Note any deviation between documented and actual steps; fix README, re-push.
-# When clean, remove the test dir.
-rm -rf /tmp/claude-bootstrap-test
-```
-
-On Windows the throwaway path is `C:\Users\thalf\tmp\claude-bootstrap-test\`.
-
-## Plan tracking
-
-Active migration: `plans/mission-you-are-replicated-canyon-v2.md`. See plan
-§6 for phases and §7 for explicit pause points.
+**Never in this repo.** `.gitignore` excludes `.credentials.json`; re-create via
+`claude login`. For application secrets use the environment's secret management —
+never inline.

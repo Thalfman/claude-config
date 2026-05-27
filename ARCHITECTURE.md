@@ -1,155 +1,126 @@
 # Architecture of `~/.claude/`
 
-The runtime model for this config: hook lifecycle, plugins, GSD's scope, the
-statusLine, and what loads when. Intended for the question "what is going to
-fire when I start a session or invoke a tool?"
+How this repo becomes a live Claude Code config — the import model, what
+`settings.json` actually contains, and what loads at session start. Intended for
+the question "what happens when `setup.sh` runs, and what fires when I start a
+session?"
 
-## Hook lifecycle
+## Import model
 
-Hooks are wired in `settings.json`. Each `hooks.<event>` array is a list of
-matchers + commands. The harness runs them in order; non-zero exit (typically
-`2`) blocks the tool call.
+This repo is the source of truth for a personal Claude Code config. It reaches a
+running environment two ways:
 
-```
-SessionStart
-  ├─ gsd-check-update.js          (Node)  — checks GSD for upstream updates
-  ├─ gsd-session-state.sh         (bash)  — restores per-project GSD state
-  ├─ context-mode-cache-heal.mjs  (Node)  — plugin cache integrity bridge
-  └─ session_context.py           (py)    — prints git branch + dirty count
+1. **Cloud overlay (primary).** `setup.sh` runs as a cloud environment's setup
+   step. A cloud env already ships a populated `~/.claude/` (built-in skills,
+   hooks, settings), so the script *overlays* this repo onto it rather than
+   replacing it:
+   - Clone/update the repo to `$CLAUDE_CONFIG_DIR` (default `~/claude-config`),
+     hard-resetting to `origin/main`.
+   - Symlink each child of `skills/`, `agents/`, `commands/` into the matching
+     `~/.claude/` dir (per-entry, so the repo's skills sit alongside the env's
+     built-ins instead of nesting under them).
+   - Symlink whole dirs `hooks/`, `output-styles/`, `memory/`, plus `CLAUDE.md`
+     and `statusline.js`.
+   - Purge known-stale artifacts (e.g. a prior GSD install) so persistent
+     environments converge clean.
+   - Merge `settings.json` (repo scalars win; the env's own `hooks` are
+     preserved; `permissions.allow` is unioned).
+   - Register every marketplace and install every enabled plugin.
 
-PreToolUse [Write|Edit]
-  ├─ gsd-prompt-guard.js          (Node)  — advisory injection scan on .planning/ writes
-  ├─ gsd-read-guard.js            (Node)  — NO-OP in Claude Code (exits when CLAUDE_CODE_ENTRYPOINT set)
-  ├─ gsd-workflow-guard.js        (Node)  — opt-in (config hooks.workflow_guard); off by default
-  └─ protect_main.py              (py)    — refuses Write/Edit on protected branches (main/master/release/prod/production)
+2. **Fresh-machine clone.** Clone the repo directly as `~/.claude/` and re-install
+   plugins. See `README.md`.
 
-PreToolUse [Bash]
-  ├─ gsd-validate-commit.sh       (bash)  — validates commit-style Bash invocations
-  └─ block_dangerous.py           (py)    — regex denylist for destructive shell patterns (rm -rf /, fork bombs, etc.)
+Cloud filesystems persist between sessions, so the overlay + purge runs every
+session and is written to be idempotent.
 
-PostToolUse [Bash|Edit|Write|MultiEdit|Agent|Task]
-  └─ gsd-context-monitor.js       (Node)  — tracks context-window pressure
+## settings.json
 
-PostToolUse [Read]
-  └─ gsd-read-injection-scanner.js (Node) — scans Read output for prompt-injection markers
+The committed `settings.json` carries:
 
-PostToolUse [Write|Edit]
-  └─ gsd-phase-boundary.sh        (bash)  — detects GSD phase transitions on file writes
+- `statusLine` → `node "<path>/statusline.js"`. The committed path is the
+  author's Windows machine; `setup.sh` rewrites it to this environment's linked
+  `statusline.js` after the merge.
+- `enabledPlugins` — 9 plugins (see table below).
+- `extraKnownMarketplaces` — the non-built-in marketplaces, by source. Two source
+  shapes appear: GitHub (`source.repo`) and plain git (`source.url`); `setup.sh`
+  handles both.
+- `permissions` (`allow: ["Bash"]`, `defaultMode: "auto"`), `outputStyle:
+  "proactive"`, `effortLevel: "xhigh"`, plus assorted toggles
+  (`autoMemoryEnabled`, `remoteControlAtStartup`, `inputNeededNotifEnabled`,
+  `agentPushNotifEnabled`, `skipAutoPermissionPrompt`).
+- **No `hooks` key.** The repo wires no hooks; the scripts under `hooks/` are
+  inert until a `hooks.<event>` entry references them.
 
-PostToolUse [Write|Edit|MultiEdit]
-  └─ format.py                    (py)    — runs prettier/black on the touched file (silent if absent)
+## Hooks
 
-PreCompact
-  └─ backup_transcript.py         (py)    — snapshots transcript before compaction
+Six Python scripts ship under `hooks/`, none currently wired in `settings.json`:
 
-statusLine (continuous)
-  └─ gsd-statusline.js            (Node)  — renders branch + phase + token cost in the status bar
-```
-
-**Per-Write/Edit cycle hook count:** PreToolUse 4 (gsd-prompt-guard, gsd-read-guard,
-gsd-workflow-guard, protect_main) + PostToolUse 3 (gsd-context-monitor, gsd-phase-boundary,
-format). Phase 3 of the migration plan instruments this with a `_log_run.py` wrapper to
-measure actual cost, then quarantines the two no-op GSD hooks (`gsd-read-guard`,
-`gsd-workflow-guard`).
-
-## Plugins
-
-| Plugin | Marketplace | Purpose | Status |
-|---|---|---|---|
-| `superpowers` | `claude-plugins-official` (built-in) | Brainstorm/plan/execute skills, finishing-a-branch, TDD, debugging | enabled |
-| `document-skills` | `anthropic-agent-skills` (`anthropics/skills`) | Office docs, PDF, slides, web artifacts, brand guidelines | enabled |
-| `frontend-design` | `claude-plugins-official` (built-in) | Distinctive frontend code | enabled |
-| `context7` | `claude-plugins-official` (built-in) | Live library docs via MCP | enabled |
-| `skill-creator` | `claude-plugins-official` (built-in) | Tools for authoring and evaluating skills | enabled |
-| `codex` | `openai-codex` (`openai/codex-plugin-cc`) | Codex rescue/setup, GPT-5.4 prompting helpers | enabled |
-| `context-mode` | `context-mode` (`mksglu/context-mode`) | Sandbox-execute large outputs; FTS5 cross-session index | enabled |
-| `claude-mem` | `thedotmack` (`thedotmack/claude-mem`) | Persistent cross-session observation memory | enabled |
-| `engineering-skills` | `claude-code-skills` (`alirezarezvani/claude-skills`) | 100+ AI skills targeting Gemini and Claude Code | **disabled** — Phase 2 quarantines the marketplace |
-
-## Get Shit Done (GSD)
-
-GSD is a multi-phase planning framework layered on top of Claude Code. It is
-not a plugin — it is installed as a unit of agents, skills, hooks, and
-reference docs under `~/.claude/`.
-
-| Surface | Count | Where |
+| Script | Intended event | Purpose |
 |---|---|---|
-| Skills | 63 (incl. 6 `gsd-ns-*` routing stubs) | `skills/gsd-*` |
-| Agents | 33 | `agents/gsd-*.md` |
-| Hooks | 9 | `hooks/gsd-*.{js,sh,mjs}` |
-| Framework | `bin/`, `contexts/`, `references/`, `templates/`, `workflows/` | `get-shit-done/` |
-| Manifest | install record | `gsd-file-manifest.json` |
+| `session_context.py` | SessionStart | print git branch + dirty count |
+| `session_logger.py` | SessionStart | append a cross-project session-log entry |
+| `protect_main.py` | PreToolUse [Write\|Edit] | refuse edits on protected branches |
+| `block_dangerous.py` | PreToolUse [Bash] | regex denylist for destructive shell |
+| `format.py` | PostToolUse [Write\|Edit] | run prettier/black on the touched file |
+| `backup_transcript.py` | PreCompact | snapshot the transcript before compaction |
 
-GSD agents reference `@$HOME/.claude/get-shit-done/references/*.md`. Updates
-ship via `gsd-update`. Local edits to GSD files will conflict on update;
-prefer override-wrappers over in-place edits.
-
-Of the 9 GSD hooks, three are no-ops in this harness:
-`gsd-read-guard.js` (exits when `CLAUDE_CODE_ENTRYPOINT` is set — targeted at
-non-Claude harnesses), `gsd-workflow-guard.js` (opt-in via
-`hooks.workflow_guard: true`, currently off), and arguably
-`gsd-prompt-guard.js` (only fires on `.planning/` writes).
+To activate any of them, add a `hooks` block to `settings.json` (read stdin JSON;
+exit `0` to pass, `2` to block).
 
 ## statusLine
 
-Driven by `gsd-statusline.js` (485 lines), wired via `settings.json` →
-`statusLine.command`. Renders branch, GSD phase, and token-cost indicator. A
-hand-rolled bash one-liner would also work; the current depth is GSD-specific.
+`statusline.js` renders the HUD: git branch, context-window usage, and model
+effort level. Wired via `settings.json` → `statusLine.command`. In the cloud,
+`setup.sh` symlinks the file into `~/.claude/` and rewrites the command to point
+at it (the committed command holds a Windows absolute path).
 
-## Context loading order (typical session start)
+## Plugins
+
+| Plugin | Marketplace | Purpose |
+|---|---|---|
+| `superpowers` | claude-plugins-official (built-in) | brainstorm/plan/execute, TDD, debugging, finishing-a-branch |
+| `context7` | claude-plugins-official (built-in) | live library docs via MCP |
+| `skill-creator` | claude-plugins-official (built-in) | author/evaluate skills |
+| `document-skills` | anthropic-agent-skills | office docs, PDF, slides, web artifacts |
+| `codex` | openai-codex | Codex rescue/setup, GPT-5.4 prompting helpers |
+| `andrej-karpathy-skills` | karpathy-skills | Karpathy coding guidelines |
+| `understand-anything` | understand-anything (git URL) | codebase knowledge graph + dashboard |
+| `bmad-pro-skills` | bmad-method | BMAD standalone utilities (spec, reviews, brainstorming) |
+| `bmad-method-lifecycle` | bmad-method | BMAD SDLC agent suite (PM, architect, dev, etc.) |
+
+Marketplace contents live under the gitignored `plugins/marketplaces/`; only the
+registry pointers (`plugins/known_marketplaces.json`,
+`plugins/installed_plugins.json`) and `settings.json` are tracked, so a fresh
+environment re-fetches each plugin.
+
+## Session-start load order (typical)
 
 1. Anthropic system prompt + tool list.
 2. `CLAUDE.md` (global preferences).
-3. Auto-memory `projects/C--Users-thalf/memory/MEMORY.md` index.
-4. Skills list — descriptions of all 74 user + active-plugin skills (~7,000
-   tokens). Largest single context block.
-5. Agents list — frontmatter of all 39 agents.
-6. Active plugin SKILL.md descriptions.
-7. `context-mode` protection block (~600 tokens).
-8. `claude-mem` recent-context block (~1,500 tokens).
-9. MCP server instructions for active plugins.
-10. The 4 SessionStart hooks fire — `session_context.py` adds git context.
-
-**Estimated session-start context cost: 15,000–20,000 tokens** before user
-input. The `gsd-*` skills (63 entries) dominate; Phase 5 considers
-consolidating the 6 `gsd-ns-*` routing stubs.
-
-## Custom code vs native Claude Code features
-
-| Custom | Native equivalent | Decision |
-|---|---|---|
-| `block_dangerous.py` | `permissions.deny: ["Bash(...)"]` rules | Hybrid: keep for rich patterns (SQL, fork bombs); Phase 3 adds native rules for simple cases. |
-| `protect_main.py` | none | Keep — narrow purpose, no native alternative. |
-| `session_context.py` | none | Keep — adds branch + dirty count to SessionStart context. |
-| `format.py` | none | Keep — wraps prettier + black. |
-| `backup_transcript.py` | plan mode preserves plans | Keep — transcript backups remain useful. |
-| `gsd-statusline.js` | `statusLine.command` | Keep while GSD is in use. |
-| `gsd-read-guard.js` | CC natively enforces read-before-edit | Phase 3 quarantines (no-op in CC). |
-| `gsd-workflow-guard.js` | plan mode + skills | Phase 3 quarantines (off by default). |
-| `gsd-prompt-guard.js` | none | Keep — narrow `.planning/` scope. |
+3. Auto-memory `MEMORY.md` index.
+4. Skills list — descriptions of all user + active-plugin skills (the largest
+   single context block; 42 user skills here plus each enabled plugin's).
+5. Agents list — frontmatter of the 6 agents.
+6. Active-plugin SKILL.md descriptions + MCP server instructions.
+7. Any wired hooks fire. (None from this repo by default; the cloud env's own
+   hooks still run.)
 
 ## Failure modes worth knowing
 
-1. **Hook timeouts.** Hooks have 5–30s timeouts; on timeout they fail silently
-   (implicit exit 0). A misconfigured hook can quietly stop working. Phase 3's
-   logging makes this visible.
-2. **`format.py` graceful fallthrough.** If prettier or black is not on PATH,
-   `format.py` skips silently. You might think auto-formatting is happening when
-   it is not.
-3. **`gsd-check-update.js` SessionStart.** If GSD's update server is unreachable,
-   you would not know — fails silently.
-4. **`claude-mem` observer growth.** No log rotation; one project grew to
-   819 MB before being noticed. Phase 2 step 5 caps this.
-5. **`agentPushNotifEnabled` and `skipAutoPermissionPrompt` keys in settings.json.**
-   Not in Claude Code's documented schema; may be vestigial. Phase 4 removes
-   them and observes behavior.
-6. **Hardcoded Node path.** 8 hook commands hardcode
-   `"C:/Program Files/nodejs/node.exe"`. Phase 3 replaces with `node` (PATH).
+1. **Stale cloud filesystem.** Environments persist; a session keeps prior files.
+   `setup.sh` hard-resets the checkout and purges GSD, but base-image cruft
+   outside those paths survives until the environment is recreated.
+2. **`format.py` silent skip.** If prettier/black is absent from PATH it does
+   nothing — you may believe formatting is happening when it is not. (Moot until
+   the hook is wired.)
+3. **statusLine path.** The committed command is Windows-absolute; without
+   `setup.sh`'s rewrite it points at a nonexistent file on Linux.
+4. **`jq` dependency.** `setup.sh`'s settings merge and plugin install require
+   `jq`; if it is missing the script aborts under `set -euo pipefail`.
+5. **Plugin install needs network + `claude` CLI.** Marketplace/plugin steps are
+   non-fatal but skipped without the CLI; new plugins then will not appear.
 
 ## Pointers
 
-- `README.md` — bootstrap + day-to-day mechanics.
-- `plans/mission-you-are-replicated-canyon-v2.md` — active migration plan.
-- `_audits/2026-05-11-skill-frontmatter.md` — SKILL.md frontmatter audit.
-- `_audits/2026-05-11-phase1-gitlink-cleanup.md` — gitlink → tree conversion notes.
-- `_archive/2026-05-11-v1-hooks/README.md` — what's in the v1 backup.
+- `README.md` — purpose, cloud-import usage, fresh-machine bootstrap.
+- `setup.sh` — the import script itself; comments explain each step.
