@@ -31,31 +31,24 @@
         "gitCommitSha": "807e03ac9d5aa23bc395fdec8c3767500a86b3cf"
       }
     ],
-    "frontend-design@claude-plugins-official": [
-      {
-        "scope": "user",
-        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\claude-plugins-official\\frontend-design\\32d0fa4f3107",
-        "version": "32d0fa4f3107",
-        "installedAt": "2026-04-26T01:48:01.008Z",
-        "lastUpdated": "2026-05-26T21:46:30.745Z"
-      }
-    ],
     "context7@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\claude-plugins-official\\context7\\32d0fa4f3107",
-        "version": "32d0fa4f3107",
+        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\claude-plugins-official\\context7\\847c8343faf3",
+        "version": "847c8343faf3",
         "installedAt": "2026-04-26T01:48:07.383Z",
-        "lastUpdated": "2026-05-26T21:46:30.745Z"
+        "lastUpdated": "2026-05-27T15:32:51.496Z",
+        "gitCommitSha": "847c8343faf36352c30995b9b8a54272a5743e85"
       }
     ],
     "skill-creator@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\claude-plugins-official\\skill-creator\\32d0fa4f3107",
-        "version": "32d0fa4f3107",
+        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\claude-plugins-official\\skill-creator\\847c8343faf3",
+        "version": "847c8343faf3",
         "installedAt": "2026-05-04T19:11:41.304Z",
-        "lastUpdated": "2026-05-11T20:25:33.898Z"
+        "lastUpdated": "2026-05-27T15:32:51.514Z",
+        "gitCommitSha": "847c8343faf36352c30995b9b8a54272a5743e85"
       }
     ],
     "context-mode@context-mode": [
@@ -66,16 +59,6 @@
         "installedAt": "2026-05-04T19:16:25.625Z",
         "lastUpdated": "2026-05-20T20:47:52.160Z",
         "gitCommitSha": "d77b25605d41784e8c256efd12e5a453e0dac498"
-      }
-    ],
-    "claude-mem@thedotmack": [
-      {
-        "scope": "user",
-        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\thedotmack\\claude-mem\\12.6.0",
-        "version": "12.6.0",
-        "installedAt": "2026-05-04T19:16:39.251Z",
-        "lastUpdated": "2026-05-04T19:16:39.251Z",
-        "gitCommitSha": "43037782a8e585a9c0ddcce1460fe5d88e8f5fb6"
       }
     ],
     "andrej-karpathy-skills@karpathy-skills": [
