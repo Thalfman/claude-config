@@ -50,6 +50,8 @@
   },
   "outputStyle": "concise",
   "effortLevel": "xhigh",
+  "editorMode": "normal",
+  "remoteControlAtStartup": true,
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true
 }
