@@ -11,7 +11,6 @@
     "codex@openai-codex": true,
     "context7@claude-plugins-official": true,
     "skill-creator@claude-plugins-official": true,
-    "context-mode@context-mode": true,
     "andrej-karpathy-skills@karpathy-skills": true
   },
   "extraKnownMarketplaces": {
@@ -27,12 +26,6 @@
         "repo": "openai/codex-plugin-cc"
       }
     },
-    "context-mode": {
-      "source": {
-        "source": "github",
-        "repo": "mksglu/context-mode"
-      }
-    },
     "karpathy-skills": {
       "source": {
         "source": "github",
@@ -42,10 +35,10 @@
   },
   "outputStyle": "concise",
   "effortLevel": "xhigh",
+  "autoMemoryEnabled": true,
   "editorMode": "normal",
   "remoteControlAtStartup": true,
-  "agentPushNotifEnabled": true,
-  "skipAutoPermissionPrompt": true,
   "inputNeededNotifEnabled": true,
-  "autoMemoryEnabled": true
+  "agentPushNotifEnabled": true,
+  "skipAutoPermissionPrompt": true
 }

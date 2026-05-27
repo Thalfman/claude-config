@@ -34,31 +34,21 @@
     "context7@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\claude-plugins-official\\context7\\847c8343faf3",
-        "version": "847c8343faf3",
+        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\claude-plugins-official\\context7\\4dfbd497c2b8",
+        "version": "4dfbd497c2b8",
         "installedAt": "2026-04-26T01:48:07.383Z",
-        "lastUpdated": "2026-05-27T15:32:51.496Z",
-        "gitCommitSha": "847c8343faf36352c30995b9b8a54272a5743e85"
+        "lastUpdated": "2026-05-27T16:17:04.850Z",
+        "gitCommitSha": "4dfbd497c2b8110e8430838bd7d0976185d6697f"
       }
     ],
     "skill-creator@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\claude-plugins-official\\skill-creator\\847c8343faf3",
-        "version": "847c8343faf3",
+        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\claude-plugins-official\\skill-creator\\4dfbd497c2b8",
+        "version": "4dfbd497c2b8",
         "installedAt": "2026-05-04T19:11:41.304Z",
-        "lastUpdated": "2026-05-27T15:32:51.514Z",
-        "gitCommitSha": "847c8343faf36352c30995b9b8a54272a5743e85"
-      }
-    ],
-    "context-mode@context-mode": [
-      {
-        "scope": "user",
-        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\context-mode\\context-mode\\1.0.111",
-        "version": "1.0.111",
-        "installedAt": "2026-05-04T19:16:25.625Z",
-        "lastUpdated": "2026-05-20T20:47:52.160Z",
-        "gitCommitSha": "d77b25605d41784e8c256efd12e5a453e0dac498"
+        "lastUpdated": "2026-05-27T16:17:04.865Z",
+        "gitCommitSha": "4dfbd497c2b8110e8430838bd7d0976185d6697f"
       }
     ],
     "andrej-karpathy-skills@karpathy-skills": [

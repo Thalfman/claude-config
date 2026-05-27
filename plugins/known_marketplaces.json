@@ -23,14 +23,6 @@
     "installLocation": "C:\\Users\\thalf\\.claude\\plugins\\marketplaces\\openai-codex",
     "lastUpdated": "2026-04-24T21:59:42.777Z"
   },
-  "context-mode": {
-    "source": {
-      "source": "github",
-      "repo": "mksglu/context-mode"
-    },
-    "installLocation": "C:\\Users\\thalf\\.claude\\plugins\\marketplaces\\context-mode",
-    "lastUpdated": "2026-05-04T19:12:39.763Z"
-  },
   "karpathy-skills": {
     "source": {
       "source": "github",
