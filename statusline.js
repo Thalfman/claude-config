@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Claude Code status line — futuristic HUD with emoji accents. Reads session JSON on stdin.
-//   Line 1:  🤖 MODEL  │  ⏱ UPTIME 6m 12s
+//   Line 1:  🤖 MODEL  │  ⚡ EFFORT XHIGH  │  ⏱ UPTIME 6m 12s
 //   Line 2:  🧠 CONTEXT ▰▰▱▱… NN% [🔥] [⚠ OVER 200K]
 
 const c = (code, s) => `\x1b[${code}m${s}\x1b[0m`;
@@ -14,6 +14,9 @@ const track = (s) => fg(238, s); // unfilled gauge / faint
 const SAFE = 48; // neon green
 const WARN = 214; // amber
 const CRIT = 198; // hot magenta
+
+// Effort tint scales with intensity: low chrome -> hot magenta at max
+const EFFORT_COLOR = { low: 66, medium: 80, high: 214, xhigh: 198, max: 198 };
 
 // Ceiling is 30%: safe < 15, warn 15-29, critical 30+
 const band = (pct) => (pct >= 30 ? CRIT : pct >= 15 ? WARN : SAFE);
@@ -70,6 +73,13 @@ function gauge(pct, color, width = 14) {
   const line1 = [];
   const model = info.model && info.model.display_name;
   if (model) line1.push("🤖 " + neon(bold(model.toUpperCase())));
+
+  // effort.level is absent when the model lacks reasoning effort support
+  const effort = info.effort && info.effort.level;
+  if (effort) {
+    const ec = EFFORT_COLOR[effort] || 51;
+    line1.push("⚡ " + steel("EFFORT ") + fg(ec, bold(effort.toUpperCase())));
+  }
 
   const cost = info.cost || {};
   if (cost.total_duration_ms) {
