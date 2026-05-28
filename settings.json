@@ -5,6 +5,7 @@
     ],
     "defaultMode": "auto"
   },
+  "model": "claude-opus-4-8[1m]",
   "statusLine": {
     "type": "command",
     "command": "node \"C:/Users/thalf/.claude/statusline.js\"",
