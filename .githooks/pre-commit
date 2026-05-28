@@ -14,5 +14,7 @@ if ! bash "$ROOT/scripts/vendor-skills.sh"; then
   exit 0
 fi
 
-# Stage whatever the mirror changed (adds, edits, deletes) so it lands in this commit.
-git add -A "$ROOT/skills"
+# Stage whatever changed (adds, edits, deletes) so it lands in this commit:
+# skills (vendored above), plus agents/ and commands/ which live in the repo
+# directly. -A captures deletions too.
+git add -A "$ROOT/skills" "$ROOT/agents" "$ROOT/commands"
