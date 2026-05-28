@@ -5,7 +5,7 @@
       "repo": "anthropics/claude-plugins-official"
     },
     "installLocation": "C:\\Users\\thalf\\.claude\\plugins\\marketplaces\\claude-plugins-official",
-    "lastUpdated": "2026-05-27T21:51:27.453Z"
+    "lastUpdated": "2026-05-28T14:20:33.825Z"
   },
   "anthropic-agent-skills": {
     "source": {
@@ -13,7 +13,7 @@
       "repo": "anthropics/skills"
     },
     "installLocation": "C:\\Users\\thalf\\.claude\\plugins\\marketplaces\\anthropic-agent-skills",
-    "lastUpdated": "2026-05-27T21:51:27.365Z"
+    "lastUpdated": "2026-05-28T14:20:34.448Z"
   },
   "openai-codex": {
     "source": {
@@ -30,25 +30,5 @@
     },
     "installLocation": "C:\\Users\\thalf\\.claude\\plugins\\marketplaces\\karpathy-skills",
     "lastUpdated": "2026-05-23T18:52:19.319Z"
-  },
-  "understand-anything": {
-    "source": {
-      "source": "git",
-      "url": "https://github.com/Lum1104/Understand-Anything.git"
-    },
-    "installLocation": "C:\\Users\\thalf\\.claude\\plugins\\marketplaces\\understand-anything",
-    "lastUpdated": "2026-05-27T21:20:25.109Z"
-  },
-  "bmad-method": {
-    "source": {
-      "source": "github",
-      "repo": "bmad-code-org/bmad-method",
-      "sparsePaths": [
-        ".claude-plugin",
-        "src"
-      ]
-    },
-    "installLocation": "C:\\Users\\thalf\\.claude\\plugins\\marketplaces\\bmad-method",
-    "lastUpdated": "2026-05-27T21:34:46.637Z"
   }
 }

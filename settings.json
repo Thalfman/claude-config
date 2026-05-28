@@ -17,10 +17,7 @@
     "codex@openai-codex": true,
     "context7@claude-plugins-official": true,
     "skill-creator@claude-plugins-official": true,
-    "andrej-karpathy-skills@karpathy-skills": true,
-    "understand-anything@understand-anything": true,
-    "bmad-pro-skills@bmad-method": true,
-    "bmad-method-lifecycle@bmad-method": true
+    "andrej-karpathy-skills@karpathy-skills": true
   },
   "extraKnownMarketplaces": {
     "anthropic-agent-skills": {
@@ -39,22 +36,6 @@
       "source": {
         "source": "github",
         "repo": "forrestchang/andrej-karpathy-skills"
-      }
-    },
-    "understand-anything": {
-      "source": {
-        "source": "git",
-        "url": "https://github.com/Lum1104/Understand-Anything.git"
-      }
-    },
-    "bmad-method": {
-      "source": {
-        "source": "github",
-        "repo": "bmad-code-org/bmad-method",
-        "sparsePaths": [
-          ".claude-plugin",
-          "src"
-        ]
       }
     }
   },
