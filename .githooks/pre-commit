@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Auto-vendor personal skills into skills/ before each commit so the repo always
+# mirrors ~/.agents/skills (Codex skills excluded). New skills are captured,
+# deleted skills are removed.
+#
+# Enable once with:   git config core.hooksPath .githooks
+# Disable with:       git config --unset core.hooksPath
+set -uo pipefail
+
+ROOT="$(git rev-parse --show-toplevel)"
+
+if ! bash "$ROOT/scripts/vendor-skills.sh"; then
+  echo "pre-commit: WARN vendor-skills failed; committing skills/ as-is" >&2
+  exit 0
+fi
+
+# Stage whatever the mirror changed (adds, edits, deletes) so it lands in this commit.
+git add -A "$ROOT/skills"
