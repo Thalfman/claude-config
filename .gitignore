@@ -42,6 +42,7 @@ statsig/
 telemetry/
 stats-cache.json
 .last-cleanup
+.last-update-result.json
 
 # Plugin marketplaces (large, regenerable via marketplace registry)
 plugins/marketplaces/
