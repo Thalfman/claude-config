@@ -26,3 +26,10 @@
 - Don't catch exceptions you can't handle.
 - Don't mock the thing being tested.
 - Don't write comments that restate the code.
+
+## Workflow
+- Surface tradeoffs. If multiple interpretations exist, present them; don't pick silently.
+- No speculative features, abstractions, or config. If 200 lines could be 50, rewrite.
+- Surgical changes: don't improve adjacent code. Touch only what the request requires.
+- Clean up orphans your changes created. Leave pre-existing dead code alone unless asked.
+- Define verifiable success criteria. "Fix bug" → "write failing test, make it pass."

@@ -21,44 +21,14 @@
         "gitCommitSha": "917e5f53b16b115b70a3a355ed5f4993b9f8b73d"
       }
     ],
-    "codex@openai-codex": [
-      {
-        "scope": "user",
-        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\openai-codex\\codex\\1.0.4",
-        "version": "1.0.4",
-        "installedAt": "2026-04-24T21:59:55.175Z",
-        "lastUpdated": "2026-05-26T21:46:30.745Z",
-        "gitCommitSha": "807e03ac9d5aa23bc395fdec8c3767500a86b3cf"
-      }
-    ],
     "context7@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\claude-plugins-official\\context7\\2afe695f6157",
-        "version": "2afe695f6157",
+        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\claude-plugins-official\\context7\\29eb73086efa",
+        "version": "29eb73086efa",
         "installedAt": "2026-04-26T01:48:07.383Z",
-        "lastUpdated": "2026-05-28T14:20:33.937Z",
-        "gitCommitSha": "2afe695f615726f2ea6e5c9b0d5bc3cfabbea86f"
-      }
-    ],
-    "skill-creator@claude-plugins-official": [
-      {
-        "scope": "user",
-        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\claude-plugins-official\\skill-creator\\2afe695f6157",
-        "version": "2afe695f6157",
-        "installedAt": "2026-05-04T19:11:41.304Z",
-        "lastUpdated": "2026-05-28T14:20:33.929Z",
-        "gitCommitSha": "2afe695f615726f2ea6e5c9b0d5bc3cfabbea86f"
-      }
-    ],
-    "andrej-karpathy-skills@karpathy-skills": [
-      {
-        "scope": "user",
-        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\karpathy-skills\\andrej-karpathy-skills\\1.0.0",
-        "version": "1.0.0",
-        "installedAt": "2026-05-23T18:52:42.297Z",
-        "lastUpdated": "2026-05-23T18:52:42.297Z",
-        "gitCommitSha": "2c606141936f1eeef17fa3043a72095b4765b9c2"
+        "lastUpdated": "2026-05-28T16:45:33.417Z",
+        "gitCommitSha": "29eb73086efa7c2fe19b67b516b9f0d6c480c8ab"
       }
     ]
   }
