@@ -5,7 +5,7 @@
       "repo": "anthropics/claude-plugins-official"
     },
     "installLocation": "C:\\Users\\thalf\\.claude\\plugins\\marketplaces\\claude-plugins-official",
-    "lastUpdated": "2026-05-28T19:29:28.903Z"
+    "lastUpdated": "2026-05-28T20:19:56.657Z"
   },
   "anthropic-agent-skills": {
     "source": {
@@ -13,7 +13,7 @@
       "repo": "anthropics/skills"
     },
     "installLocation": "C:\\Users\\thalf\\.claude\\plugins\\marketplaces\\anthropic-agent-skills",
-    "lastUpdated": "2026-05-28T19:29:28.827Z"
+    "lastUpdated": "2026-05-28T20:19:56.587Z"
   },
   "openai-codex": {
     "source": {
