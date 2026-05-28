@@ -3,9 +3,10 @@
 This is `~/.claude/` — global Claude Code configuration for user `thalf`, tracked
 in git so it is reproducible.
 
-**Primary purpose:** `setup.sh` imports this config into Claude Code **cloud
-sessions** (claude.ai/code) by overlaying it onto the environment's existing
-`~/.claude/`. The same repo also bootstraps a fresh local machine (see below).
+**Primary purpose:** imported into Claude Code **cloud sessions**
+(claude.ai/code) by the environment's own setup step, which clones this repo
+and overlays it onto the env's existing `~/.claude/`. The same repo also
+bootstraps a fresh local machine (see below).
 
 ## What lives here
 
@@ -13,8 +14,6 @@ sessions** (claude.ai/code) by overlaying it onto the environment's existing
 - `settings.json` — runtime config: enabled plugins, marketplace registry,
   statusLine, permissions, effort level. Note: it does **not** currently wire any
   `hooks` (see `hooks/` below).
-- `setup.sh` — the cloud-import bootstrap. Clones/updates this repo and overlays
-  it onto `~/.claude/`. See ARCHITECTURE.md for the mechanics.
 - `statusline.js` — the status-line HUD (branch, context-window usage, model
   effort). Wired via `settings.json` → `statusLine.command`.
 - `skills/` — 42 user-owned skills (writing, planning, code-quality, OpenSpec,
@@ -26,14 +25,13 @@ sessions** (claude.ai/code) by overlaying it onto the environment's existing
 - `hooks/` — 6 Python hook scripts (`backup_transcript`, `block_dangerous`,
   `format`, `protect_main`, `session_context`, `session_logger`). **Present but
   not wired** in `settings.json`; they are inert until referenced under a
-  `hooks.<event>` key. `setup.sh` symlinks them so a session-level config can opt
-  in.
+  `hooks.<event>` key.
 - `output-styles/` — `concise.md` (custom output style; `settings.json` currently
   selects the built-in `proactive` style).
 - `memory/` — tracked memory index (`MEMORY.md`) and individual memory files.
 - `plugins/installed_plugins.json`, `plugins/known_marketplaces.json` — captured
-  plugin/marketplace registry. `setup.sh` replays these to install plugins in a
-  fresh environment (the plugin *payloads* under `plugins/cache/` and
+  plugin/marketplace registry. Replayed to install plugins in a fresh
+  environment (the plugin *payloads* under `plugins/cache/` and
   `plugins/marketplaces/` are gitignored and re-fetched).
 - `_archive/`, `_audits/`, `plans/` — historical snapshots, audit reports, and
   planning artifacts. Already-tracked; `.gitignore` blocks new additions.
@@ -56,33 +54,18 @@ See `ARCHITECTURE.md` for the import model, settings contents, and plugin list.
 
 ## Cloud import (primary use)
 
-`setup.sh` is meant to run as the **environment setup script** for Claude Code
-cloud sessions.
-
-1. Provide a fine-grained, read-only GitHub PAT scoped to this repo as the
-   environment secret `CLAUDE_CONFIG_TOKEN`. Never inline the token.
-2. Point the environment's setup step at `setup.sh` (e.g. clone this repo and run
-   `bash setup.sh`, or paste its contents).
-3. On each session the script clones/updates the repo to `$CLAUDE_CONFIG_DIR`
-   (default `~/claude-config`), symlinks the file-based config into `~/.claude/`,
-   merges `settings.json`, and registers marketplaces + installs plugins.
-
-Tunables (env vars): `CLAUDE_CONFIG_TOKEN`, `CLAUDE_CONFIG_DIR`, `INSTALL_PLUGINS`
-(`1` default; `0` skips marketplace/plugin install).
+The cloud environment's own setup step is responsible for cloning this repo and
+overlaying it onto `~/.claude/`. Provide a fine-grained, read-only GitHub PAT
+scoped to this repo as an environment secret so the env can authenticate the
+clone. The import script itself lives in the environment, not in this repo.
 
 ### Resetting a cloud environment
 
 Cloud environments **persist their filesystem** across sessions, and there is no
-UI "reset" button. `setup.sh` overlays onto whatever is already there, and also
-purges known-stale artifacts (e.g. a prior GSD install) on each run. For a fully
-clean slate, recreate the environment (Managed Agents API: delete the environment
-when no session references it, then create a new one) so `setup.sh` runs against a
-fresh `~/.claude/`. A one-time manual purge inside a session:
-
-```bash
-rm -rf ~/.claude/get-shit-done ~/claude-config   # drop stale config + checkout
-bash ~/claude-config/setup.sh                     # re-run (re-clones via token)
-```
+UI "reset" button. The env's overlay step runs onto whatever is already there.
+For a fully clean slate, recreate the environment (Managed Agents API: delete
+the environment when no session references it, then create a new one) so the
+overlay runs against a fresh `~/.claude/`.
 
 ## Bootstrap a fresh local machine
 
@@ -127,7 +110,6 @@ claude
 | Claude Code CLI | the harness (`claude` on PATH) |
 | Node.js (any LTS) | `statusline.js` + plugin runtime |
 | Python 3 | the `hooks/` scripts, if wired |
-| `bash` + `jq` | `setup.sh` (clone, symlink, settings merge) |
 | `git` | clone/update |
 
 ## What does NOT live here (gitignored)
