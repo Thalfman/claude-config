@@ -24,11 +24,11 @@
     "context7@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\claude-plugins-official\\context7\\29eb73086efa",
-        "version": "29eb73086efa",
+        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\claude-plugins-official\\context7\\316e676e76e5",
+        "version": "316e676e76e5",
         "installedAt": "2026-04-26T01:48:07.383Z",
-        "lastUpdated": "2026-05-28T16:45:33.417Z",
-        "gitCommitSha": "29eb73086efa7c2fe19b67b516b9f0d6c480c8ab"
+        "lastUpdated": "2026-05-28T17:47:31.971Z",
+        "gitCommitSha": "316e676e76e542da48287c579c85f8ee7153101f"
       }
     ]
   }

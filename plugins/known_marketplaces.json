@@ -5,7 +5,7 @@
       "repo": "anthropics/claude-plugins-official"
     },
     "installLocation": "C:\\Users\\thalf\\.claude\\plugins\\marketplaces\\claude-plugins-official",
-    "lastUpdated": "2026-05-28T16:45:33.369Z"
+    "lastUpdated": "2026-05-28T17:47:31.927Z"
   },
   "anthropic-agent-skills": {
     "source": {
@@ -13,7 +13,7 @@
       "repo": "anthropics/skills"
     },
     "installLocation": "C:\\Users\\thalf\\.claude\\plugins\\marketplaces\\anthropic-agent-skills",
-    "lastUpdated": "2026-05-28T16:45:33.301Z"
+    "lastUpdated": "2026-05-28T17:47:31.853Z"
   },
   "openai-codex": {
     "source": {
@@ -21,7 +21,7 @@
       "repo": "openai/codex-plugin-cc"
     },
     "installLocation": "C:\\Users\\thalf\\.claude\\plugins\\marketplaces\\openai-codex",
-    "lastUpdated": "2026-04-24T21:59:42.777Z"
+    "lastUpdated": "2026-05-28T18:24:32.333Z"
   },
   "karpathy-skills": {
     "source": {
@@ -29,6 +29,6 @@
       "repo": "forrestchang/andrej-karpathy-skills"
     },
     "installLocation": "C:\\Users\\thalf\\.claude\\plugins\\marketplaces\\karpathy-skills",
-    "lastUpdated": "2026-05-23T18:52:19.319Z"
+    "lastUpdated": "2026-05-28T18:24:33.501Z"
   }
 }
