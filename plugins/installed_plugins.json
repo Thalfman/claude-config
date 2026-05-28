@@ -34,21 +34,21 @@
     "context7@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\claude-plugins-official\\context7\\bec7f1b507e3",
-        "version": "bec7f1b507e3",
+        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\claude-plugins-official\\context7\\2afe695f6157",
+        "version": "2afe695f6157",
         "installedAt": "2026-04-26T01:48:07.383Z",
-        "lastUpdated": "2026-05-27T21:51:27.536Z",
-        "gitCommitSha": "bec7f1b507e33c3bf42a61e1c88ac22b476cb185"
+        "lastUpdated": "2026-05-28T14:20:33.937Z",
+        "gitCommitSha": "2afe695f615726f2ea6e5c9b0d5bc3cfabbea86f"
       }
     ],
     "skill-creator@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\claude-plugins-official\\skill-creator\\bec7f1b507e3",
-        "version": "bec7f1b507e3",
+        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\claude-plugins-official\\skill-creator\\2afe695f6157",
+        "version": "2afe695f6157",
         "installedAt": "2026-05-04T19:11:41.304Z",
-        "lastUpdated": "2026-05-27T21:51:27.552Z",
-        "gitCommitSha": "bec7f1b507e33c3bf42a61e1c88ac22b476cb185"
+        "lastUpdated": "2026-05-28T14:20:33.929Z",
+        "gitCommitSha": "2afe695f615726f2ea6e5c9b0d5bc3cfabbea86f"
       }
     ],
     "andrej-karpathy-skills@karpathy-skills": [
@@ -59,36 +59,6 @@
         "installedAt": "2026-05-23T18:52:42.297Z",
         "lastUpdated": "2026-05-23T18:52:42.297Z",
         "gitCommitSha": "2c606141936f1eeef17fa3043a72095b4765b9c2"
-      }
-    ],
-    "understand-anything@understand-anything": [
-      {
-        "scope": "user",
-        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\understand-anything\\understand-anything\\2.7.5",
-        "version": "2.7.5",
-        "installedAt": "2026-05-27T21:20:34.633Z",
-        "lastUpdated": "2026-05-27T21:20:34.633Z",
-        "gitCommitSha": "26edf61856fa476e466bda1814819a266a293c47"
-      }
-    ],
-    "bmad-pro-skills@bmad-method": [
-      {
-        "scope": "user",
-        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\bmad-method\\bmad-pro-skills\\6.6.0",
-        "version": "6.6.0",
-        "installedAt": "2026-05-27T21:35:04.886Z",
-        "lastUpdated": "2026-05-27T21:35:04.886Z",
-        "gitCommitSha": "3bcd6c3cce6e381b759e23185b099081496567a5"
-      }
-    ],
-    "bmad-method-lifecycle@bmad-method": [
-      {
-        "scope": "user",
-        "installPath": "C:\\Users\\thalf\\.claude\\plugins\\cache\\bmad-method\\bmad-method-lifecycle\\6.6.0",
-        "version": "6.6.0",
-        "installedAt": "2026-05-27T21:38:13.963Z",
-        "lastUpdated": "2026-05-27T21:38:13.963Z",
-        "gitCommitSha": "3bcd6c3cce6e381b759e23185b099081496567a5"
       }
     ]
   }
