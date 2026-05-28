@@ -1,0 +1,5 @@
+# Claude Code rewrites settings.json with LF. Global core.autocrlf=true otherwise
+# expects CRLF on checkout and reports a phantom "modified" every session even
+# when the bytes match. Pin it to LF so git's expectation matches the app (and
+# stays consistent in Linux cloud sessions).
+settings.json text eol=lf
